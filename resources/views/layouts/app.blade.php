@@ -821,8 +821,8 @@
     ***********************************-->
     <script src="{{ asset('plugins/common/common.min.js') }}"></script>
     <script src="{{ asset('js/custom.min.js') }}"></script>
-    <script src="{{ asset('js/settings.min.js') }}"></script>
-    <script src="{{ asset('js/gleek.js') }}"></script>
+    {{-- <script src="{{ asset('js/settings.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('js/gleek.js') }}"></script> --}}
     <script src="{{ asset('js/styleSwitcher.js') }}"></script>
 
     <!-- Chartjs -->
