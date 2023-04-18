@@ -109,18 +109,18 @@
                                 <div class="dropdown-content-body">
                                     <ul>
                                         <li>
-                                            <a href="app-profile.html"><i class="icon-user"></i>
+                                            <a href="{{ route('users.index') }}"><i class="icon-user"></i>
                                                 <span>Profile</span></a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void()">
+                                            <a href="{{ route('roles.index') }}">
                                                 <i class="icon-envelope-open"></i> <span>Inbox</span>
                                             </a>
                                         </li>
 
                                         <hr class="my-2">
                                         <li>
-                                            <a href="page-lock.html"><i class="icon-lock"></i> <span>Lock
+                                            <a href="{{ route('products.index') }}"><i class="icon-lock"></i> <span>Lock
                                                     Screen</span></a>
                                         </li>
                                         <li>
@@ -243,7 +243,8 @@
         ***********************************-->
         <div class="content-body">
             <div class="container-fluid mt-3">
-                <div class="row">
+                @yield('content')
+                {{-- <div class="row">
                     <div class="col-lg-3 col-sm-6">
                         <div class="card gradient-1">
                             <div class="card-body">
@@ -293,7 +294,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- <div class="row">
                     <div class="col-lg-12">
@@ -805,7 +806,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="http://127.0.0.1:8000/home">Huu</a> 2023</p>
+                <p>Copyright &copy; Designed & Developed by <a href="{{ route('home') }}">Huu</a> 2023</p>
             </div>
         </div>
         <!--**********************************
