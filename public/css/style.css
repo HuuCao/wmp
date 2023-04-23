@@ -718,6 +718,9 @@ a.dt-button.active:not(.disabled) {
     font-size: 20px;
     font-weight: 900;
 }
+.logo a img {
+    margin: 0px 10px;
+}
 .sidebar-hide .logo {
     width: 0;
 }
@@ -1905,7 +1908,7 @@ footer p {
 }
 /*    Input Style
 ------------------------*/
-.form-group {
+/* .form-group {
     margin-bottom: 20px;
 }
 .form-control {
@@ -1923,7 +1926,7 @@ footer p {
 .form-control.active {
     box-shadow: none;
     border-color: #878787;
-}
+} */
 .input-default {
     border-radius: 4px;
 }
@@ -2069,7 +2072,7 @@ footer p {
 /*    Input Size
 --------------------*/
 .input-sm {
-    font-size: 12px;
+    font-size: 13px;
     height: 30px;
     line-height: 1.5;
 }
@@ -2697,9 +2700,6 @@ thead tr th {
     color: #373757;
     font-weight: 500;
 }
-thead tr th:last-child {
-    text-align: right;
-}
 tbody tr th {
     color: #373757;
     font-family: "Roboto", sans-serif;
@@ -2708,9 +2708,6 @@ tbody tr th {
 tbody tr td {
     font-family: "Roboto", sans-serif;
     color: #868e96;
-}
-tbody tr td:last-child {
-    text-align: right;
 }
 .table > tbody > tr > td,
 .table > tbody > tr > th,
@@ -3835,8 +3832,6 @@ h6.h1 {
     color: #252525;
 }
 .no-select-arrow {
-    -moz-appearance: none !important;
-    -webkit-appearance: none !important;
     border: 1px solid #e7e7e7;
 }
 .bg-ash {

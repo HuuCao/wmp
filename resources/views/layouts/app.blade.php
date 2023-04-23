@@ -39,113 +39,68 @@
         <div class="nano">
             <div class="nano-content">
                 <ul>
-                    <div class="logo"><a href="index.html">
-                            <img src="images/logo.png" alt="" /><span>WMP</span></a></div>
-                    <li class="label">Main</li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-home"></i> Dashboard <span
-                                class="badge badge-primary">2</span> <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="index.html">Dashboard 1</a></li>
-                            <li><a href="index.html">Dashboard 2</a></li>
-                        </ul>
+                    <div class="logo">
+                        <a href="{{ route('home') }}">
+                            <img src="{{ asset('images/logo.png') }}" alt="" />
+                            <span>WMP</span>
+                        </a>
+                    </div>
+                    {{-- Tổng quan --}}
+                    <li>
+                        <a href="{{ route('home') }}"><i class="ti-home"></i>Tống quan</a>
                     </li>
 
-                    <li class="label">Apps</li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Charts <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                    {{-- Thiết lập dữ liệu --}}
+                    <li class="label">
+                        Thiết lập dữ liệu
+                    </li>
+                    <li>
+                        <a class="sidebar-sub-toggle">
+                            <i class="ti-settings"></i> Thiết lập dữ liệu
+                            <span class="sidebar-collapse-icon ti-angle-down"></span>
+                        </a>
                         <ul>
-                            <li><a href="chart-flot.html">Flot</a></li>
-                            <li><a href="chart-morris.html">Morris</a></li>
-                            <li><a href="chartjs.html">Chartjs</a></li>
-                            <li><a href="chartist.html">Chartist</a></li>
-                            <li><a href="chart-peity.html">Peity</a></li>
-                            <li><a href="chart-sparkline.html">Sparkle</a></li>
-                            <li><a href="chart-knob.html">Knob</a></li>
+                            <li><a href="{{ route('categories.index') }}">Loại hàng</a></li>
+                            <li><a href="#">Đơn vị</a></li>
+                            <li><a href="#">Sản phẩm</a></li>
                         </ul>
                     </li>
-                    <li><a href="app-event-calender.html"><i class="ti-calendar"></i> Calender </a></li>
-                    <li><a href="app-email.html"><i class="ti-email"></i> Email</a></li>
-                    <li><a href="app-profile.html"><i class="ti-user"></i> Profile</a></li>
-                    <li><a href="app-widget-card.html"><i class="ti-layout-grid2-alt"></i> Widget</a></li>
-                    <li class="label">Features</li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-layout"></i> UI Elements <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="ui-typography.html">Typography</a></li>
-                            <li><a href="ui-alerts.html">Alerts</a></li>
+                    <li><a href="app-event-calender.html"><i class="ti-user"></i>Nhà cung cấp</a></li>
 
-                            <li><a href="ui-button.html">Button</a></li>
-                            <li><a href="ui-dropdown.html">Dropdown</a></li>
+                    {{-- Dữ liệu nhập xuất --}}
+                    <li class="label">Dữ liệu nhập xuất</li>
+                    <li>
+                        <a class="sidebar-sub-toggle"><i class="ti-cloud-down"></i>Dữ liệu nhập hàng
+                            <span class="sidebar-collapse-icon ti-angle-down"></span>
+                        </a>
+                        <ul>
+                            <li><a href="ui-typography.html">Nhập hàng</a></li>
+                            <li><a href="ui-alerts.html">Sản phẩm đã nhập</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="sidebar-sub-toggle">
+                            <i class="ti-cloud-up"></i> Dữ liệu xuất hàng
+                            <span class="sidebar-collapse-icon ti-angle-down"></span>
+                        </a>
+                        <ul>
+                            <li><a href="uc-calendar.html">Xuất hàng</a></li>
+                            <li><a href="uc-carousel.html">Sản phẩm đã xuất</a></li>
+                        </ul>
+                    </li>                    
+                    <li><a href="#"><i class="ti-package"></i>Dữ liệu kho hàng</a></li>
 
-                            <li><a href="ui-list-group.html">List Group</a></li>
+                    {{-- Báo cáo thống kê --}}
+                    <li class="label">Báo cáo thống kê</li>
+                    <li><a href="#"><i class="ti-stats-up"></i>Thống kê nhập xuất tồn đầu</a></li>
+                    <li><a href="#"><i class="ti-money"></i>Thống kê doanh thu</a></li>
+                    <li><a href="#"><i class="ti-book"></i>Thống kê SL hàng bán ra</a></li>
 
-                            <li><a href="ui-progressbar.html">Progressbar</a></li>
-                            <li><a href="ui-tab.html">Tab</a></li>
-
-                        </ul>
-                    </li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-panel"></i> Components <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="uc-calendar.html">Calendar</a></li>
-                            <li><a href="uc-carousel.html">Carousel</a></li>
-                            <li><a href="uc-weather.html">Weather</a></li>
-                            <li><a href="uc-datamap.html">Datamap</a></li>
-                            <li><a href="uc-todo-list.html">To do</a></li>
-                            <li><a href="uc-scrollable.html">Scrollable</a></li>
-                            <li><a href="uc-sweetalert.html">Sweet Alert</a></li>
-                            <li><a href="uc-toastr.html">Toastr</a></li>
-                            <li><a href="uc-range-slider-basic.html">Basic Range Slider</a></li>
-                            <li><a href="uc-range-slider-advance.html">Advance Range Slider</a></li>
-                            <li><a href="uc-nestable.html">Nestable</a></li>
-
-                            <li><a href="uc-rating-bar-rating.html">Bar Rating</a></li>
-                            <li><a href="uc-rating-jRate.html">jRate</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Table <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="table-basic.html">Basic</a></li>
-
-                            <li><a href="table-export.html">Datatable Export</a></li>
-                            <li><a href="table-row-select.html">Datatable Row Select</a></li>
-                            <li><a href="table-jsgrid.html">Editable </a></li>
-                        </ul>
-                    </li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-heart"></i> Icons <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="font-themify.html">Themify</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-map"></i> Maps <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="gmaps.html">Basic</a></li>
-                            <li><a href="vector-map.html">Vector Map</a></li>
-                        </ul>
-                    </li>
-                    <li class="label">Form</li>
-                    <li><a href="form-basic.html"><i class="ti-view-list-alt"></i> Basic Form </a></li>
-                    <li class="label">Extra</li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-files"></i> Invoice <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="invoice.html">Basic</a></li>
-                            <li><a href="invoice-editable.html">Editable</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-target"></i> Pages <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="page-login.html">Login</a></li>
-                            <li><a href="page-register.html">Register</a></li>
-                            <li><a href="page-reset-password.html">Forgot password</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="../documentation/index.html"><i class="ti-file"></i> Documentation</a></li>
+                    {{-- Thông tin quản trị --}}
+                    <li class="label">Thông tin quản trị</li>
+                    <li><a href="{{ route('users.index') }}"><i class="ti-list"></i>Danh sách người dùng</a></li>
+                    <li><a href="{{ route('users.create') }}"><i class="ti-plus"></i>Tạo người dùng</a></li>
+                    <li><a href="{{ route('roles.index') }}"><i class="ti-thumb-up"></i>Phân quyền người dùng</a></li>
                 </ul>
             </div>
         </div>
@@ -305,14 +260,10 @@
                         </div>
                         <div class="dropdown dib">
                             <div class="header-icon" data-toggle="dropdown">
-                                <span class="user-avatar">John
+                                <span class="user-avatar">{{ Auth::user()->name }}
                                     <i class="ti-angle-down f-s-10"></i>
                                 </span>
                                 <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
-                                    <div class="dropdown-content-heading">
-                                        <span class="text-left">Upgrade Now</span>
-                                        <p class="trial-day">30 Days Trail</p>
-                                    </div>
                                     <div class="dropdown-content-body">
                                         <ul>
                                             <li>
@@ -334,18 +285,15 @@
                                                     <span>Setting</span>
                                                 </a>
                                             </li>
-
                                             <li>
-                                                <a href="#">
-                                                    <i class="ti-lock"></i>
-                                                    <span>Lock Screen</span>
+                                                <a href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                    <i class="ti-lock"></i> <span>Logout</span>
                                                 </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="ti-power-off"></i>
-                                                    <span>Logout</span>
-                                                </a>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                    style="display: none;">
+                                                    @csrf
+                                                </form>
                                             </li>
                                         </ul>
                                     </div>
@@ -358,276 +306,10 @@
         </div>
     </div>
 
-
     <div class="content-wrap">
         <div class="main">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-8 p-r-0 title-margin-right">
-                        <div class="page-header">
-                            <div class="page-title">
-                                <h1>Hello, <span>Welcome Here</span></h1>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /# column -->
-                    <div class="col-lg-4 p-l-0 title-margin-left">
-                        <div class="page-header">
-                            <div class="page-title">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Home</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /# column -->
-                </div>
-                <!-- /# row -->
-                <section id="main-content">
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-money color-success border-success"></i>
-                                    </div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text">Total Profit</div>
-                                        <div class="stat-digit">1,012</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-user color-primary border-primary"></i>
-                                    </div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text">New Customer</div>
-                                        <div class="stat-digit">961</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-layout-grid2 color-pink border-pink"></i>
-                                    </div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text">Active Projects</div>
-                                        <div class="stat-digit">770</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-link color-danger border-danger"></i>
-                                    </div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text">Referral</div>
-                                        <div class="stat-digit">2,781</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- /# column -->
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-title pr">
-                                    <h4>All Exam Result</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table student-data-table m-t-20">
-                                            <thead>
-                                                <tr>
-                                                    <th><label><input type="checkbox" value=""></label>Exam Name
-                                                    </th>
-                                                    <th>Subject</th>
-                                                    <th>Grade Point</th>
-                                                    <th>Percent Form</th>
-                                                    <th>Percent Upto</th>
-                                                    <th>Date</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Class Test</td>
-                                                    <td>Mathmatics</td>
-                                                    <td>
-                                                        4.00
-                                                    </td>
-                                                    <td>
-                                                        95.00
-                                                    </td>
-                                                    <td>
-                                                        100
-                                                    </td>
-                                                    <td>20/04/2017</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Class Test</td>
-                                                    <td>Mathmatics</td>
-                                                    <td>
-                                                        4.00
-                                                    </td>
-                                                    <td>
-                                                        95.00
-                                                    </td>
-                                                    <td>
-                                                        100
-                                                    </td>
-                                                    <td>20/04/2017</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Class Test</td>
-                                                    <td>English</td>
-                                                    <td>
-                                                        4.00
-                                                    </td>
-                                                    <td>
-                                                        95.00
-                                                    </td>
-                                                    <td>
-                                                        100
-                                                    </td>
-                                                    <td>20/04/2017</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Class Test</td>
-                                                    <td>Bangla</td>
-                                                    <td>
-                                                        4.00
-                                                    </td>
-                                                    <td>
-                                                        95.00
-                                                    </td>
-                                                    <td>
-                                                        100
-                                                    </td>
-                                                    <td>20/04/2017</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Class Test</td>
-                                                    <td>Mathmatics</td>
-                                                    <td>
-                                                        4.00
-                                                    </td>
-                                                    <td>
-                                                        95.00
-                                                    </td>
-                                                    <td>
-                                                        100
-                                                    </td>
-                                                    <td>20/04/2017</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Class Test</td>
-                                                    <td>English</td>
-                                                    <td>
-                                                        4.00
-                                                    </td>
-                                                    <td>
-                                                        95.00
-                                                    </td>
-                                                    <td>
-                                                        100
-                                                    </td>
-                                                    <td>20/04/2017</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Class Test</td>
-                                                    <td>Mathmatics</td>
-                                                    <td>
-                                                        4.00
-                                                    </td>
-                                                    <td>
-                                                        95.00
-                                                    </td>
-                                                    <td>
-                                                        100
-                                                    </td>
-                                                    <td>20/04/2017</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /# column -->
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="card p-0">
-                                <div class="stat-widget-three home-widget-three">
-                                    <div class="stat-icon bg-facebook">
-                                        <i class="ti-facebook"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="stat-digit">8,268</div>
-                                        <div class="stat-text">Likes</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card p-0">
-                                <div class="stat-widget-three home-widget-three">
-                                    <div class="stat-icon bg-youtube">
-                                        <i class="ti-youtube"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="stat-digit">12,545</div>
-                                        <div class="stat-text">Subscribes</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card p-0">
-                                <div class="stat-widget-three home-widget-three">
-                                    <div class="stat-icon bg-twitter">
-                                        <i class="ti-twitter"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="stat-digit">7,982</div>
-                                        <div class="stat-text">Tweets</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card p-0">
-                                <div class="stat-widget-three home-widget-three">
-                                    <div class="stat-icon bg-danger">
-                                        <i class="ti-linkedin"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="stat-digit">9,658</div>
-                                        <div class="stat-text">Followers</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="footer">
-                                <p>2023 &copy; Admin Warehouse Management. - <a href="#">wmp.com.vn</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                @yield('content')
             </div>
         </div>
     </div>
