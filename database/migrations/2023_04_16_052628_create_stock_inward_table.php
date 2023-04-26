@@ -20,6 +20,7 @@ class CreateStockInwardTable extends Migration
             $table->unsignedBigInteger('supplier_id');
             $table->text('content');
             $table->text('note');
+            $table->enum('is_active', [1, 2])->default(1);
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

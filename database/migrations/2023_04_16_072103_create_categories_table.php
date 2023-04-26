@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('description')->nullable();
+            $table->enum('is_active', [1, 2])->default(1);
             $table->timestamps();
         });
     }

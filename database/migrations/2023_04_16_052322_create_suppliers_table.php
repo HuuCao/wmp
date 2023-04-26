@@ -19,6 +19,7 @@ class CreateSuppliersTable extends Migration
             $table->string('address');
             $table->string('email');
             $table->string('phone');
+            $table->enum('is_active', [1, 2])->default(1);
             $table->timestamps();
         });
     }

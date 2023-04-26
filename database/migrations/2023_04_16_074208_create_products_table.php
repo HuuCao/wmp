@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->date('expiration_date');
             $table->enum('status', ['active', 'inactive']);
             $table->string('image');
+            $table->enum('is_active', [1, 2])->default(1);
             $table->unsignedBigInteger('unit_id');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('sheft_id');

@@ -20,6 +20,7 @@ class CreateStockProductsTable extends Migration
             $table->string('type'); // loại hàng nhập hay xuất
             $table->integer('quantity')->default(0);
             $table->text('note')->nullable();
+            $table->enum('is_active', [1, 2])->default(1);
             $table->timestamps();
 
             $table->foreign('stock_id')->references('id')->on('stock_inward')->onDelete('cascade');

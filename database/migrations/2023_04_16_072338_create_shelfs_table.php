@@ -18,6 +18,7 @@ class CreateShelfsTable extends Migration
             $table->string('shelf_name')->unique();
             $table->string('location')->nullable();
             $table->string('description')->nullable();
+            $table->enum('is_active', [1, 2])->default(1);
             $table->timestamps();
         });
     }
