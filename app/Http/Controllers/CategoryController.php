@@ -14,11 +14,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $title = 'Loại hàng';
         $categories = Category::where('is_active', 1)
             ->orderBy('id', 'DESC')
-            ->paginate(2);
+            ->paginate(5);
 
-        return view('categories.index', compact('categories'));
+        return view('categories.index', compact('title', 'categories'));
     }
 
     /**
@@ -28,8 +29,8 @@ class CategoryController extends Controller
      */
     public function create(Request $request)
     {
-        // $categories = Category::get();
-        return view('categories.create');
+        $title = 'Tạo loại hàng';
+        return view('categories.create', compact('title'));
     }
 
     /**
@@ -50,8 +51,8 @@ class CategoryController extends Controller
 
         $categories = new Category();
 
-        $categories->name = $request->name_category;
-        $categories->description = $request->description_category;
+        $categories->name_category = $request->name_category;
+        $categories->description = $request->description;
         $categories->save();
 
         return redirect()->route('categories.index')
@@ -66,7 +67,8 @@ class CategoryController extends Controller
      */
     public function show(Category $categories)
     {
-        return view('categories.show', compact('categories'));
+        $title = 'Chi tiết loại hàng';
+        return view('categories.show', compact('categories', 'title'));
     }
 
     /**
@@ -77,7 +79,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $title = 'Chỉnh sửa loại hàng';
+        $category = Category::find($id);
+        return view('categories.edit', compact('category', 'title'));
     }
 
     /**
@@ -89,7 +93,20 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'name_category' => 'required',
+        ]);
+
+        $name_category = $request->name_category;
+        $description = $request->description;
+
+        Category::where('id', $id)->update([
+            'name_category' => $name_category,
+            'description' => $description
+        ]);
+
+        return redirect()->route('categories.index')
+            ->with('success', 'Category updated successfully');
     }
 
     /**
@@ -100,6 +117,11 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::where('id', $id)->update([
+            'is_active' => 2
+        ]);
+
+        return redirect()->route('categories.index')
+            ->with('success', 'Category deleted successfully');
     }
 }

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- theme meta -->
     <meta name="theme-name" content="focus" />
-    <title>Focus Admin: Creative Admin Dashboard</title>
+    <title>@yield('title') | WMP</title>
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
     <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
@@ -61,7 +61,7 @@
                         </a>
                         <ul>
                             <li><a href="{{ route('categories.index') }}">Loại hàng</a></li>
-                            <li><a href="#">Đơn vị</a></li>
+                            <li><a href="{{ route('units.index') }}">Đơn vị</a></li>
                             <li><a href="#">Sản phẩm</a></li>
                         </ul>
                     </li>

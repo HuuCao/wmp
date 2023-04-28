@@ -14,15 +14,27 @@
             </div>
             <div class="card-body">
                 <div class="input-sizes">
-                    <form action="{{ route('categories.update', $category->id) }}" method="POST">
+                    {{-- @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif --}}
+                    <form action="{{ route('units.update', $unit->id) }}" method="POST">
                         @csrf
                         <div class="form-group row">
                             <label class="col-lg-4 text-right">
-                                Tên loại hàng: <span class="text-danger">*</span>
+                                Tên đơn vị: <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control input-sm" value="{{ $category->name_category }}"
-                                    id="name_category" name="name_category" placeholder="Nhập tên loại hàng">
+                                <input type="text" class="form-control input-sm" value="{{ $unit->unit_name }}"
+                                    id="unit_name" name="unit_name" placeholder="Nhập tên đơn vị">
+                                @error('unit_name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group row">
@@ -30,15 +42,15 @@
                                 Mô tả:
                             </label>
                             <div class="col-lg-6">
-                                <textarea class="form-control input-sm" name="description" id="description" placeholder="Nhập tên loại hàng"
-                                    style="height: 100px">{{ $category->description }}</textarea>
+                                <textarea class="form-control input-sm" name="description" id="description" placeholder="Nhập tên đơn vị"
+                                    style="height: 100px">{{ $unit->description }}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-lg-8 ml-auto">
                                 <button type="submit" class="btn btn-primary">Cập nhật</button>
-                                <a class="btn btn-danger" href="{{ route('categories.index') }}">Trở lại</a>
+                                <a class="btn btn-danger" href="{{ route('units.index') }}">Trở lại</a>
                             </div>
                         </div>
                     </form>

@@ -2510,6 +2510,7 @@ ul {
     padding: 8px;
     vertical-align: top;
 }
+
 @media (max-width: 767px) {
     .files .btn span {
         display: none;

@@ -10,10 +10,10 @@
             <div class="row">
                 <div class="col-lg-12 margin-tb">
                     <div class="pull-left">
-                        <h4>Danh sách loại hàng</h4>
+                        <h4>Danh sách đơn vị</h4>
                     </div>
                     <div class="pull-right">
-                        <a class="btn btn-success" href="{{ route('categories.create') }}">Thêm mới</a>
+                        <a class="btn btn-success" href="{{ route('units.create') }}">Thêm mới</a>
                     </div>
                 </div>
             </div>
@@ -37,28 +37,28 @@
                 <tbody>
                     @php
                         $pageItem = 5;
-                        $currentPage = $categories->currentPage();
+                        $currentPage = $units->currentPage();
                         $page = ($currentPage - 1) * $pageItem + 1;
                     @endphp
 
-                    @foreach ($categories as $category)
+                    @foreach ($units as $unit)
                         <tr>
                             <td class="text-center">{{ $page++ }}</td>
-                            <td>{{ $category->name_category }}</td>
-                            <td>{{ $category->description }}</td>
+                            <td>{{ $unit->unit_name }}</td>
+                            <td>{{ $unit->description }}</td>
                             <td class="text-center">
-                                <a href="{{ route('categories.show', $category->id) }}"><i class="ti-eye"></i></a>
-                                <a href="{{ route('categories.edit', $category->id) }}" class="ml-2">
+                                <a href="{{ route('units.show', $unit->id) }}"><i class="ti-eye"></i></a>
+                                <a href="{{ route('units.edit', $unit->id) }}" class="ml-2">
                                     <i class="ti-pencil-alt"></i>
                                 </a>
                                 <a href="" class="ml-2"
-                                    onclick="if (confirm('Bạn có chắc muốn xóa danh mục này không?')) { event.preventDefault(); document.getElementById('delete-form-{{ $category->id }}').submit(); }">
+                                    onclick="if (confirm('Bạn có chắc muốn xóa danh mục này không?')) { event.preventDefault(); document.getElementById('delete-form-{{ $unit->id }}').submit(); }">
                                     <i class="ti-trash"></i>
                                 </a>
                                 {!! Form::open([
                                     'method' => 'DELETE',
-                                    'route' => ['categories.destroy', $category->id],
-                                    'id' => 'delete-form-' . $category->id,
+                                    'route' => ['units.destroy', $unit->id],
+                                    'id' => 'delete-form-' . $unit->id,
                                 ]) !!}
                                 {!! Form::close() !!}
                             </td>
@@ -68,5 +68,5 @@
             </table>
         </div>
     </div>
-    {{ $categories->links('pagination.custom-pagination') }}
+    {{ $units->links('pagination.custom-pagination') }}
 @endsection
