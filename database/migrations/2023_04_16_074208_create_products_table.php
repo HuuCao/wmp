@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->decimal('import_price', 10, 2);
             $table->decimal('export_price', 10, 2);
             $table->string('type');
+            $table->integer('quantity');
             $table->date('manufacture_date');
             $table->date('expiration_date');
             $table->enum('status', ['active', 'inactive']);

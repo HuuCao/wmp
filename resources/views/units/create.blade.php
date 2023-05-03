@@ -21,7 +21,7 @@
                                 Tên đơn vị: <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control input-sm" id="unit_name" name="unit_name"
+                                <input type="text" class="form-control input-sm" id="unit_name" name="unit_name" value="{{ old('unit_name') }}"
                                     placeholder="Nhập tên đơn vị">
                                 @error('unit_name')
                                     <div class="text-danger">{{ $message }}</div>
@@ -29,10 +29,10 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-4 text-right">Mô tả: <span class="text-danger">*</span></label>
+                            <label class="col-lg-4 text-right">Mô tả:</label>
                             <div class="col-lg-6">
                                 <textarea class="form-control input-sm" name="description" id="description" placeholder="Nhập tên đơn vị"
-                                    style="height: 100px"></textarea>
+                                    style="height: 100px">{{ old('description') }}</textarea>
                             </div>
                         </div>
 

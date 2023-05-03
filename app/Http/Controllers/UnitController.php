@@ -43,11 +43,19 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'unit_name' => 'required'
+            'unit_name' => [
+                'required',
+                Rule::unique('units', 'unit_name')->where(function ($query) {
+                    $query->where('is_active', '!=', 2);
+                })
+            ]
         ];
+
         $message = [
             'required' => 'Vui lòng nhập thông tin!',
+            'unique' => 'Đơn vị đã tồn tại. Vui lòng nhập đơn vị khác!'
         ];
+
         $request->validate($rules, $message);
 
         $units = new Unit();

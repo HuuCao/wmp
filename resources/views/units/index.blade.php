@@ -42,7 +42,7 @@
                     @endphp
 
                     @foreach ($units as $unit)
-                        <tr>
+                        <tr class="text-center">
                             <td class="text-center">{{ $page++ }}</td>
                             <td>{{ $unit->unit_name }}</td>
                             <td>{{ $unit->description }}</td>
