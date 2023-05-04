@@ -28,7 +28,7 @@ class CreateProductsTable extends Migration
             $table->enum('is_active', [1, 2])->default(1);
             $table->unsignedBigInteger('unit_id');
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('sheft_id');
+            $table->unsignedBigInteger('shelves_id');
             $table->timestamps();
 
             $table->foreign('unit_id')
@@ -39,9 +39,9 @@ class CreateProductsTable extends Migration
                 ->references('id')
                 ->on('categories')
                 ->onDelete('cascade');
-            $table->foreign('sheft_id')
+            $table->foreign('shelves_id')
                 ->references('id')
-                ->on('shefts')
+                ->on('shelves')
                 ->onDelete('cascade');
         });
     }

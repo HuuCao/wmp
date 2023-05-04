@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ShelvesController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 
@@ -60,6 +61,17 @@ Route::group(['prefix' => '/units'], function () {
     Route::get('/{id}/edit', [UnitController::class, 'edit'])->name('units.edit');
     Route::post('/{id}/edit', [UnitController::class, 'update'])->name('units.update');
     Route::delete('/destroy/{id}', [UnitController::class, 'destroy'])->name('units.destroy');
+});
+
+// Kệ hàng
+Route::group(['prefix' => '/shelves'], function () {
+    Route::get('/', [ShelvesController::class, 'index'])->name('shelves.index');
+    Route::get('/show/{id}', [ShelvesController::class, 'show'])->name('shelves.show');
+    Route::get('/create', [ShelvesController::class, 'create'])->name('shelves.create');
+    Route::post('/create', [ShelvesController::class, 'store'])->name('shelves.store');
+    Route::get('/{id}/edit', [ShelvesController::class, 'edit'])->name('shelves.edit');
+    Route::post('/{id}/edit', [ShelvesController::class, 'update'])->name('shelves.update');
+    Route::delete('/destroy/{id}', [ShelvesController::class, 'destroy'])->name('shelves.destroy');
 });
 
 // Nhà cung cấp

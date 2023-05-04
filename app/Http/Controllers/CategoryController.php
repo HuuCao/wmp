@@ -16,11 +16,12 @@ class CategoryController extends Controller
     public function index()
     {
         $title = 'Loại hàng';
+        $page_title = 'Categories';
         $categories = Category::where('is_active', 1)
             ->orderBy('id', 'DESC')
             ->paginate(2);
 
-        return view('categories.index', compact('title', 'categories'));
+        return view('categories.index', compact('title', 'categories', 'page_title'));
     }
 
     /**
@@ -31,7 +32,8 @@ class CategoryController extends Controller
     public function create(Request $request)
     {
         $title = 'Tạo loại hàng';
-        return view('categories.create', compact('title'));
+        $page_title = 'Categories';
+        return view('categories.create', compact('title', 'page_title'));
     }
 
     /**
@@ -88,8 +90,9 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $title = 'Chỉnh sửa loại hàng';
+        $page_title = 'Categories';
         $category = Category::find($id);
-        return view('categories.edit', compact('category', 'title'));
+        return view('categories.edit', compact('category', 'title', 'page_title'));
     }
 
     /**

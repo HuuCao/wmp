@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Unit;
+use App\Models\Shelves;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class UnitController extends Controller
+class ShelvesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,13 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $title = 'Đơn vị';
-        $page_title = 'Units';
-        $units = Unit::where('is_active', 1)
+        $title = 'Kệ hàng';
+        $page_title = 'Shelves';
+        $shelves = Shelves::where('is_active', 1)
             ->orderBy('id', 'DESC')
             ->paginate(2);
 
-        return view('units.index', compact('title', 'units', 'page_title'));
+        return view('shelves.index', compact('title', 'shelves', 'page_title'));
     }
 
     /**
@@ -31,9 +31,9 @@ class UnitController extends Controller
      */
     public function create()
     {
-        $title = 'Tạo đơn vị';
-        $page_title = 'Units';
-        return view('units.create', compact('title', 'page_title'));
+        $title = 'Tạo kệ hàng';
+        $page_title = 'Shelves';
+        return view('shelves.create', compact('title', 'page_title'));
     }
 
     /**
@@ -45,29 +45,29 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'unit_name' => [
+            'shelves_name' => [
                 'required',
-                Rule::unique('units', 'unit_name')->where(function ($query) use ($request) {
-                    $query->where('is_active', '!=', 2)->where('unit_name', '<>', $request->unit_name);
+                Rule::unique('shelves', 'shelves_name')->where(function ($query) use ($request) {
+                    $query->where('is_active', '!=', 2)->where('shelves_name', $request->shelves_name);
                 })
             ]
         ];
 
         $message = [
             'required' => 'Vui lòng nhập thông tin!',
-            'unique' => 'Đơn vị đã tồn tại. Vui lòng nhập đơn vị khác!'
+            'unique' => 'Loại hàng đã tồn tại. Vui lòng nhập loại hàng khác!'
         ];
-
         $request->validate($rules, $message);
 
-        $units = new Unit();
+        $shelves = new Shelves();
 
-        $units->unit_name = $request->unit_name;
-        $units->description = $request->description;
-        $units->save();
+        $shelves->shelves_name = $request->shelves_name;
+        $shelves->location = $request->location;
+        $shelves->description = $request->description;
+        $shelves->save();
 
-        return redirect()->route('units.index')
-            ->with('success', 'Unit created successfully.');
+        return redirect()->route('shelves.index')
+            ->with('success', 'Shelves created successfully.');
     }
 
     /**
@@ -89,10 +89,10 @@ class UnitController extends Controller
      */
     public function edit($id)
     {
-        $title = 'Chỉnh sửa đơn vị';
-        $page_title = 'Units';
-        $unit = Unit::find($id);
-        return view('units.edit', compact('unit', 'title', 'page_title'));
+        $title = 'Chỉnh sửa kệ hàng';
+        $page_title = 'Shelves';
+        $shelves = Shelves::find($id);
+        return view('shelves.edit', compact('shelves', 'title', 'page_title'));
     }
 
     /**
@@ -105,31 +105,33 @@ class UnitController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'unit_name' => [
+            'shelves_name' => [
                 'required',
-                Rule::unique('units', 'unit_name')->where(function ($query) use ($request) {
-                    $query->where('is_active', '!=', 2)->where('unit_name', '<>', $request->unit_name);
+                Rule::unique('shelves', 'shelves_name')->where(function ($query) use ($request) {
+                    $query->where('is_active', '!=', 2)->where('shelves_name', '<>', $request->shelves_name);
                 })
             ]
         ];
 
         $message = [
             'required' => 'Vui lòng nhập thông tin!',
-            'unique' => 'Đơn vị đã tồn tại. Vui lòng nhập đơn vị khác!'
+            'unique' => 'Kệ đã tồn tại. Vui lòng nhập tên khác!'
         ];
 
         $request->validate($rules, $message);
 
-        $unit_name = $request->unit_name;
+        $shelves_name = $request->shelves_name;
+        $location = $request->location;
         $description = $request->description;
 
-        Unit::where('id', $id)->update([
-            'unit_name' => $unit_name,
+        Shelves::where('id', $id)->update([
+            'shelves_name' => $shelves_name,
+            'location' => $location,
             'description' => $description
         ]);
 
-        return redirect()->route('units.index')
-            ->with('success', 'Unit updated successfully');
+        return redirect()->route('shelves.index')
+            ->with('success', 'Shelves updated successfully');
     }
 
     /**
@@ -140,11 +142,11 @@ class UnitController extends Controller
      */
     public function destroy($id)
     {
-        Unit::where('id', $id)->update([
+        Shelves::where('id', $id)->update([
             'is_active' => 2
         ]);
 
-        return redirect()->route('units.index')
-            ->with('success', 'Unit deleted successfully');
+        return redirect()->route('shelves.index')
+            ->with('success', 'Shelves deleted successfully');
     }
 }

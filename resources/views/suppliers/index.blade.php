@@ -4,6 +4,14 @@
     {{ $title }}
 @endsection
 
+@section('page_name')
+    {{ $title }}
+@endsection
+
+@section('page_title')
+    {{ $page_title }}
+@endsection
+
 @section('content')
     <div class="col-lg-12">
         <div class="card">
@@ -28,7 +36,7 @@
             <div class="row">
                 <div class="col-lg-12 margin-tb">
                     <div class="pull-left">
-                        <p><b>{{ $suppliers->total() }}</b> NHÀ CUNG CẤP</p>
+                        <p><b>{{ $suppliers->total() }}</b> nhà cung cấp</p>
                     </div>
                 </div>
             </div>

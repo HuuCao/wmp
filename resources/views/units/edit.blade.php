@@ -4,25 +4,24 @@
     {{ $title }}
 @endsection
 
+@section('page_name')
+    {{ $title }}
+@endsection
+
+@section('page_title')
+    {{ $page_title }}
+@endsection
+
 @section('content')
-    <div class="col-lg-12">
+    <div class="col-lg-8 mx-auto">
         <div class="card">
             <div class="row">
-                <div class="card-title">
-                    <h4>Chỉnh sửa loại hàng</h4>
+                <div class="card-title mx-auto">
+                    <h4>Nhập thông tin</h4>
                 </div>
             </div>
             <div class="card-body">
                 <div class="input-sizes">
-                    {{-- @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif --}}
                     <form action="{{ route('units.update', $unit->id) }}" method="POST">
                         @csrf
                         <div class="form-group row">

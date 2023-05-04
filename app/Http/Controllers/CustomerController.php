@@ -16,11 +16,12 @@ class CustomerController extends Controller
     public function index()
     {
         $title = 'Khách hàng';
+        $page_title = 'Customers';
         $customers = Customer::where('is_active', 1)
             ->orderBy('id', 'DESC')
             ->paginate(2);
 
-        return view('customers.index', compact('title', 'customers'));
+        return view('customers.index', compact('title', 'customers', 'page_title'));
     }
 
     /**
@@ -31,7 +32,8 @@ class CustomerController extends Controller
     public function create()
     {
         $title = 'Tạo khách hàng';
-        return view('customers.create', compact('title'));
+        $page_title = 'Customers';
+        return view('customers.create', compact('title', 'page_title'));
     }
 
     /**
@@ -93,8 +95,9 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $title = 'Chỉnh sửa thông tin khách hàng';
+        $page_title = 'Customers';
         $customer = Customer::find($id);
-        return view('customers.edit', compact('customer', 'title'));
+        return view('customers.edit', compact('customer', 'title', 'page_title'));
     }
 
     /**

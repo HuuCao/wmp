@@ -4,12 +4,20 @@
     {{ $title }}
 @endsection
 
+@section('page_name')
+    {{ $title }}
+@endsection
+
+@section('page_title')
+    {{ $page_title }}
+@endsection
+
 @section('content')
-    <div class="col-lg-12">
+    <div class="col-lg-8 mx-auto">
         <div class="card">
             <div class="row">
-                <div class="card-title">
-                    <h4>Thêm đơn vị</h4>
+                <div class="card-title mx-auto">
+                    <h4>Nhập thông tin</h4>
                 </div>
             </div>
             <div class="card-body">
@@ -21,8 +29,8 @@
                                 Tên đơn vị: <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control input-sm" id="unit_name" name="unit_name" value="{{ old('unit_name') }}"
-                                    placeholder="Nhập tên đơn vị">
+                                <input type="text" class="form-control input-sm" id="unit_name" name="unit_name"
+                                    value="{{ old('unit_name') }}" placeholder="Nhập tên đơn vị">
                                 @error('unit_name')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror

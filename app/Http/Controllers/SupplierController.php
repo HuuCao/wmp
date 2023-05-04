@@ -16,11 +16,12 @@ class SupplierController extends Controller
     public function index()
     {
         $title = 'Nhà cung cấp';
+        $page_title = 'Suppliers';
         $suppliers = Supplier::where('is_active', 1)
             ->orderBy('id', 'DESC')
             ->paginate(2);
 
-        return view('suppliers.index', compact('title', 'suppliers'));
+        return view('suppliers.index', compact('title', 'suppliers', 'page_title'));
     }
 
     /**
@@ -31,7 +32,8 @@ class SupplierController extends Controller
     public function create()
     {
         $title = 'Tạo nhà cung cấp';
-        return view('suppliers.create', compact('title'));
+        $page_title = 'Suppliers';
+        return view('suppliers.create', compact('title', 'page_title'));
     }
 
     /**
@@ -102,8 +104,9 @@ class SupplierController extends Controller
     public function edit($id)
     {
         $title = 'Chỉnh sửa nhà cung cấp';
+        $page_title = 'Suppliers';
         $supplier = Supplier::find($id);
-        return view('suppliers.edit', compact('supplier', 'title'));
+        return view('suppliers.edit', compact('supplier', 'title', 'page_title'));
     }
 
     /**

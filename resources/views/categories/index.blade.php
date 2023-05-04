@@ -4,6 +4,14 @@
     {{ $title }}
 @endsection
 
+@section('page_name')
+    {{ $title }}
+@endsection
+
+@section('page_title')
+    {{ $page_title }}
+@endsection
+
 @section('content')
     <div class="col-lg-12">
         <div class="card">
@@ -24,7 +32,15 @@
                     <strong>{{ $message }}</strong>
                 </div>
             @endif
-            
+
+            <div class="row">
+                <div class="col-lg-12 margin-tb">
+                    <div class="pull-left">
+                        <p><b>{{ $categories->total() }}</b> loại hàng</p>
+                    </div>
+                </div>
+            </div>
+
             @if (count($categories) > 0)
                 <table class="table table-bordered table-hover">
                     <thead>
@@ -32,12 +48,14 @@
                             <th>STT</th>
                             <th>Tên</th>
                             <th>Mô tả</th>
+                            <th>Ngày tạo</th>
+                            <th>Ngày cập nhật</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php
-                            $pageItem = 5;
+                            $pageItem = 2;
                             $currentPage = $categories->currentPage();
                             $page = ($currentPage - 1) * $pageItem + 1;
                         @endphp
@@ -47,6 +65,8 @@
                                 <td>{{ $page++ }}</td>
                                 <td>{{ $category->name_category }}</td>
                                 <td>{{ $category->description }}</td>
+                                <td>{{ $category->created_at }}</td>
+                                <td>{{ $category->updated_at }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('categories.show', $category->id) }}"><i class="ti-eye"></i></a>
                                     <a href="{{ route('categories.edit', $category->id) }}" class="ml-2">
@@ -74,6 +94,8 @@
                             <th>STT</th>
                             <th>Tên</th>
                             <th>Mô tả</th>
+                            <th>Ngày tạo</th>
+                            <th>Ngày cập nhật</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>

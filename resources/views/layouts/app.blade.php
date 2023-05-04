@@ -62,6 +62,7 @@
                         <ul>
                             <li><a href="{{ route('categories.index') }}">Loại hàng</a></li>
                             <li><a href="{{ route('units.index') }}">Đơn vị</a></li>
+                            <li><a href="{{ route('shelves.index') }}">Kệ hàng</a></li>
                             <li><a href="#">Sản phẩm</a></li>
                         </ul>
                     </li>
@@ -88,7 +89,7 @@
                             <li><a href="uc-calendar.html">Xuất hàng</a></li>
                             <li><a href="uc-carousel.html">Sản phẩm đã xuất</a></li>
                         </ul>
-                    </li>                    
+                    </li>
                     <li><a href="#"><i class="ti-package"></i>Dữ liệu kho hàng</a></li>
 
                     {{-- Báo cáo thống kê --}}
@@ -310,6 +311,30 @@
     <div class="content-wrap">
         <div class="main">
             <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <h1>
+                                    @yield('page_name')
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-4 p-l-0 title-margin-left">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="{{ route('home') }}">Dashboard</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">@yield('page_title')</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 @yield('content')
             </div>
         </div>
