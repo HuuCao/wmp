@@ -119,7 +119,7 @@ class SupplierController extends Controller
             'supplier_name' => [
                 'required',
                 Rule::unique('suppliers', 'supplier_name')->where(function ($query) use ($request) {
-                    $query->where('is_active', '!=', 2)->where('supplier_name', '<>',$request->supplier_name);
+                    $query->where('is_active', '!=', 2)->where('supplier_name', '<>', $request->supplier_name);
                 })
             ],
             'phone' => 'required|regex:/^0[0-9]{9}$/',

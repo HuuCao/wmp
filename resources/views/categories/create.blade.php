@@ -21,7 +21,7 @@
                                 Tên loại hàng: <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control input-sm" id="name_category" name="name_category"
+                                <input type="text" class="form-control input-sm" id="name_category" name="name_category" value="{{ old('name_category') }}"
                                     placeholder="Nhập tên loại hàng">
                                 @error('name_category')
                                     <div class="text-danger">{{ $message }}</div>
@@ -32,7 +32,7 @@
                             <label class="col-lg-4 text-right">Mô tả: <span class="text-danger">*</span></label>
                             <div class="col-lg-6">
                                 <textarea class="form-control input-sm" name="description" id="description"
-                                    placeholder="Nhập tên loại hàng" style="height: 100px"></textarea>
+                                    placeholder="Nhập tên loại hàng" style="height: 100px">{{ old('description') }}</textarea>
                             </div>
                         </div>
 

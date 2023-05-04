@@ -43,16 +43,10 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name_category' => 'required'
-        ];
-        $message = [
-            'required' => 'Vui lòng nhập thông tin!',
-        ];
-        $rules = [
             'name_category' => [
                 'required',
                 Rule::unique('categories', 'name_category')->where(function ($query) use ($request) {
-                    $query->where('is_active', '!=', 2)->where('name_category', '<>', $request->name_category);
+                    $query->where('is_active', '!=', 2)->where('name_category', $request->name_category);
                 })
             ]
         ];

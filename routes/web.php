@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 
@@ -70,4 +71,15 @@ Route::group(['prefix' => '/suppliers'], function () {
     Route::get('/{id}/edit', [SupplierController::class, 'edit'])->name('suppliers.edit');
     Route::post('/{id}/edit', [SupplierController::class, 'update'])->name('suppliers.update');
     Route::delete('/destroy/{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
+});
+
+// Khách hàng
+Route::group(['prefix' => '/customers'], function () {
+    Route::get('/', [CustomerController::class, 'index'])->name('customers.index');
+    Route::get('/show/{id}', [CustomerController::class, 'show'])->name('customers.show');
+    Route::get('/create', [CustomerController::class, 'create'])->name('customers.create');
+    Route::post('/create', [CustomerController::class, 'store'])->name('customers.store');
+    Route::get('/{id}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
+    Route::post('/{id}/edit', [CustomerController::class, 'update'])->name('customers.update');
+    Route::delete('/destroy/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 });

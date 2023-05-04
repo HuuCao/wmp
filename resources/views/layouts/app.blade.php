@@ -66,6 +66,7 @@
                         </ul>
                     </li>
                     <li><a href="{{ route('suppliers.index') }}"><i class="ti-user"></i>Nhà cung cấp</a></li>
+                    <li><a href="{{ route('customers.index') }}"><i class="ti-user"></i>Khách hàng</a></li>
 
                     {{-- Dữ liệu nhập xuất --}}
                     <li class="label">Dữ liệu nhập xuất</li>
