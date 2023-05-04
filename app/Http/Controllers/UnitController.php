@@ -18,7 +18,7 @@ class UnitController extends Controller
         $title = 'Đơn vị';
         $units = Unit::where('is_active', 1)
             ->orderBy('id', 'DESC')
-            ->paginate(5);
+            ->paginate(2);
 
         return view('units.index', compact('title', 'units'));
     }
@@ -45,8 +45,8 @@ class UnitController extends Controller
         $rules = [
             'unit_name' => [
                 'required',
-                Rule::unique('units', 'unit_name')->where(function ($query) {
-                    $query->where('is_active', '!=', 2);
+                Rule::unique('units', 'unit_name')->where(function ($query) use ($request) {
+                    $query->where('is_active', '!=', 2)->where('unit_name', '<>', $request->unit_name);
                 })
             ]
         ];
@@ -101,19 +101,11 @@ class UnitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // request()->validate([
-        //     'unit_name' => [
-        //         'required',
-        //         Rule::unique('units', 'is_active')->where(function ($query) {
-        //             return $query->where('is_active', '!=', 2);
-        //         })->ignore($id),
-        //     ],
-        // ]);
         $rules = [
             'unit_name' => [
                 'required',
-                Rule::unique('units', 'unit_name')->where(function ($query) {
-                    $query->where('is_active', '!=', 2);
+                Rule::unique('units', 'unit_name')->where(function ($query) use ($request) {
+                    $query->where('is_active', '!=', 2)->where('unit_name', '<>', $request->unit_name);
                 })
             ]
         ];

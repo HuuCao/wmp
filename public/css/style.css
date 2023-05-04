@@ -2510,6 +2510,24 @@ ul {
     padding: 8px;
     vertical-align: top;
 }
+.nodata {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0px;
+    font-family: "Montserrat";
+    font-size: 25px;
+    color: #666666;
+    background-color: #fff;
+    font-weight: bold;
+    flex-direction: column;
+}
+
+.nodata svg {
+    width: 100px;
+    height: 100px;
+}
 
 @media (max-width: 767px) {
     .files .btn span {

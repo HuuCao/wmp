@@ -65,7 +65,7 @@
                             <li><a href="#">Sản phẩm</a></li>
                         </ul>
                     </li>
-                    <li><a href="app-event-calender.html"><i class="ti-user"></i>Nhà cung cấp</a></li>
+                    <li><a href="{{ route('suppliers.index') }}"><i class="ti-user"></i>Nhà cung cấp</a></li>
 
                     {{-- Dữ liệu nhập xuất --}}
                     <li class="label">Dữ liệu nhập xuất</li>

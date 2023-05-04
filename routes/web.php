@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 
 /*
@@ -58,4 +59,15 @@ Route::group(['prefix' => '/units'], function () {
     Route::get('/{id}/edit', [UnitController::class, 'edit'])->name('units.edit');
     Route::post('/{id}/edit', [UnitController::class, 'update'])->name('units.update');
     Route::delete('/destroy/{id}', [UnitController::class, 'destroy'])->name('units.destroy');
+});
+
+// Nhà cung cấp
+Route::group(['prefix' => '/suppliers'], function () {
+    Route::get('/', [SupplierController::class, 'index'])->name('suppliers.index');
+    Route::get('/show/{id}', [SupplierController::class, 'show'])->name('suppliers.show');
+    Route::get('/create', [SupplierController::class, 'create'])->name('suppliers.create');
+    Route::post('/create', [SupplierController::class, 'store'])->name('suppliers.store');
+    Route::get('/{id}/edit', [SupplierController::class, 'edit'])->name('suppliers.edit');
+    Route::post('/{id}/edit', [SupplierController::class, 'update'])->name('suppliers.update');
+    Route::delete('/destroy/{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
 });

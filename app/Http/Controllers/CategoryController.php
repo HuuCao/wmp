@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -17,7 +18,7 @@ class CategoryController extends Controller
         $title = 'Loại hàng';
         $categories = Category::where('is_active', 1)
             ->orderBy('id', 'DESC')
-            ->paginate(5);
+            ->paginate(2);
 
         return view('categories.index', compact('title', 'categories'));
     }
@@ -46,6 +47,19 @@ class CategoryController extends Controller
         ];
         $message = [
             'required' => 'Vui lòng nhập thông tin!',
+        ];
+        $rules = [
+            'name_category' => [
+                'required',
+                Rule::unique('categories', 'name_category')->where(function ($query) use ($request) {
+                    $query->where('is_active', '!=', 2)->where('name_category', '<>', $request->name_category);
+                })
+            ]
+        ];
+
+        $message = [
+            'required' => 'Vui lòng nhập thông tin!',
+            'unique' => 'Loại hàng đã tồn tại. Vui lòng nhập loại hàng khác!'
         ];
         $request->validate($rules, $message);
 

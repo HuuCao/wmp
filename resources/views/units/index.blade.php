@@ -25,47 +25,66 @@
                 </div>
             @endif
 
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr class="text-center">
-                        <th>STT</th>
-                        <th>Tên</th>
-                        <th>Mô tả</th>
-                        <th>Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $pageItem = 5;
-                        $currentPage = $units->currentPage();
-                        $page = ($currentPage - 1) * $pageItem + 1;
-                    @endphp
-
-                    @foreach ($units as $unit)
+            @if (count($units) > 0)
+                <table class="table table-bordered table-hover">
+                    <thead>
                         <tr class="text-center">
-                            <td class="text-center">{{ $page++ }}</td>
-                            <td>{{ $unit->unit_name }}</td>
-                            <td>{{ $unit->description }}</td>
-                            <td class="text-center">
-                                <a href="{{ route('units.show', $unit->id) }}"><i class="ti-eye"></i></a>
-                                <a href="{{ route('units.edit', $unit->id) }}" class="ml-2">
-                                    <i class="ti-pencil-alt"></i>
-                                </a>
-                                <a href="" class="ml-2"
-                                    onclick="if (confirm('Bạn có chắc muốn xóa danh mục này không?')) { event.preventDefault(); document.getElementById('delete-form-{{ $unit->id }}').submit(); }">
-                                    <i class="ti-trash"></i>
-                                </a>
-                                {!! Form::open([
-                                    'method' => 'DELETE',
-                                    'route' => ['units.destroy', $unit->id],
-                                    'id' => 'delete-form-' . $unit->id,
-                                ]) !!}
-                                {!! Form::close() !!}
-                            </td>
+                            <th>STT</th>
+                            <th>Tên</th>
+                            <th>Mô tả</th>
+                            <th>Hành động</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @php
+                            $pageItem = 5;
+                            $currentPage = $units->currentPage();
+                            $page = ($currentPage - 1) * $pageItem + 1;
+                        @endphp
+
+                        @foreach ($units as $unit)
+                            <tr class="text-center">
+                                <td class="text-center">{{ $page++ }}</td>
+                                <td>{{ $unit->unit_name }}</td>
+                                <td>{{ $unit->description }}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('units.show', $unit->id) }}"><i class="ti-eye"></i></a>
+                                    <a href="{{ route('units.edit', $unit->id) }}" class="ml-2">
+                                        <i class="ti-pencil-alt"></i>
+                                    </a>
+                                    <a href="" class="ml-2"
+                                        onclick="if (confirm('Bạn có chắc muốn xóa danh mục này không?')) { event.preventDefault(); document.getElementById('delete-form-{{ $unit->id }}').submit(); }">
+                                        <i class="ti-trash"></i>
+                                    </a>
+                                    {!! Form::open([
+                                        'method' => 'DELETE',
+                                        'route' => ['units.destroy', $unit->id],
+                                        'id' => 'delete-form-' . $unit->id,
+                                    ]) !!}
+                                    {!! Form::close() !!}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @else
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="text-center">
+                            <th>STT</th>
+                            <th>Tên</th>
+                            <th>Mô tả</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="col-12 nodata">
+                    <span class="iconify"><i class="ti-folder"></i></span>
+                    <div>
+                        Không có dữ liệu!
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
     {{ $units->links('pagination.custom-pagination') }}

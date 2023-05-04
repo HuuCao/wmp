@@ -10,10 +10,10 @@
             <div class="row">
                 <div class="col-lg-12 margin-tb">
                     <div class="pull-left">
-                        <h4>Danh sách loại hàng</h4>
+                        <h4>Danh sách nhà cung cấp</h4>
                     </div>
                     <div class="pull-right">
-                        <a class="btn btn-success" href="{{ route('categories.create') }}">Thêm mới</a>
+                        <a class="btn btn-success" href="{{ route('suppliers.create') }}">Thêm mới</a>
                     </div>
                 </div>
             </div>
@@ -24,42 +24,56 @@
                     <strong>{{ $message }}</strong>
                 </div>
             @endif
-            
-            @if (count($categories) > 0)
+
+            <div class="row">
+                <div class="col-lg-12 margin-tb">
+                    <div class="pull-left">
+                        <p><b>{{ $suppliers->total() }}</b> NHÀ CUNG CẤP</p>
+                    </div>
+                </div>
+            </div>
+
+            @if (count($suppliers) > 0)
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr class="text-center">
                             <th>STT</th>
+                            <th>Mã</th>
                             <th>Tên</th>
-                            <th>Mô tả</th>
+                            <th>SĐT</th>
+                            <th>Email</th>
+                            <th>Địa chỉ</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php
-                            $pageItem = 5;
-                            $currentPage = $categories->currentPage();
+                            $pageItem = 2;
+                            $currentPage = $suppliers->currentPage();
                             $page = ($currentPage - 1) * $pageItem + 1;
                         @endphp
 
-                        @foreach ($categories as $category)
+                        @foreach ($suppliers as $supplier)
                             <tr class="text-center">
-                                <td>{{ $page++ }}</td>
-                                <td>{{ $category->name_category }}</td>
-                                <td>{{ $category->description }}</td>
+                                <td class="text-center">{{ $page++ }}</td>
+                                <td>{{ $supplier->supplier_code }}</td>
+                                <td>{{ $supplier->supplier_name }}</td>
+                                <td>{{ $supplier->phone }}</td>
+                                <td>{{ $supplier->email }}</td>
+                                <td>{{ $supplier->address }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('categories.show', $category->id) }}"><i class="ti-eye"></i></a>
-                                    <a href="{{ route('categories.edit', $category->id) }}" class="ml-2">
+                                    <a href="{{ route('suppliers.show', $supplier->id) }}"><i class="ti-eye"></i></a>
+                                    <a href="{{ route('suppliers.edit', $supplier->id) }}" class="ml-2">
                                         <i class="ti-pencil-alt"></i>
                                     </a>
                                     <a href="" class="ml-2"
-                                        onclick="if (confirm('Bạn có chắc muốn xóa danh mục này không?')) { event.preventDefault(); document.getElementById('delete-form-{{ $category->id }}').submit(); }">
+                                        onclick="if (confirm('Bạn có chắc muốn xóa danh mục này không?')) { event.preventDefault(); document.getElementById('delete-form-{{ $supplier->id }}').submit(); }">
                                         <i class="ti-trash"></i>
                                     </a>
                                     {!! Form::open([
                                         'method' => 'DELETE',
-                                        'route' => ['categories.destroy', $category->id],
-                                        'id' => 'delete-form-' . $category->id,
+                                        'route' => ['suppliers.destroy', $supplier->id],
+                                        'id' => 'delete-form-' . $supplier->id,
                                     ]) !!}
                                     {!! Form::close() !!}
                                 </td>
@@ -72,8 +86,11 @@
                     <thead>
                         <tr class="text-center">
                             <th>STT</th>
+                            <th>Mã</th>
                             <th>Tên</th>
-                            <th>Mô tả</th>
+                            <th>SĐT</th>
+                            <th>Email</th>
+                            <th>Địa chỉ</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
@@ -87,5 +104,5 @@
             @endif
         </div>
     </div>
-    {{ $categories->links('pagination.custom-pagination') }}
+    {{ $suppliers->links('pagination.custom-pagination') }}
 @endsection
