@@ -30,6 +30,7 @@
     <link href="{{ asset('css/lib/menubar/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/lib/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/lib/helper.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/lib/select2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 
@@ -343,6 +344,7 @@
     <!-- jquery vendor -->
     <script src="{{ asset('js/lib/jquery.min.js') }}"></script>
     <script src="{{ asset('js/lib/jquery.nanoscroller.min.js') }}"></script>
+    <script src="{{ asset('js/lib/select2.min.js') }}"></script>
     <!-- nano scroller -->
     <script src="{{ asset('js/lib/menubar/sidebar.js') }}"></script>
     <script src="{{ asset('js/lib/preloader/pace.min.js') }}"></script>
@@ -369,6 +371,12 @@
     <!-- scripit init-->
     <script src="{{ asset('js/dashboard2.js') }}"></script>
     <script src="{{ asset('js/dashboard2.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(".js-select2-multi").select2();
+        });
+    </script>
 </body>
 
 </html>

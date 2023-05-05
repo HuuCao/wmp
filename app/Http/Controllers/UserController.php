@@ -19,9 +19,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('id', 'DESC')->paginate(5);
-        return view('users.index', compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        $title = 'Người dùng';
+        $page_title = 'Users';
+        $users = User::orderBy('id', 'DESC')->with('roles')->paginate(2);
+        // return($users);
+        return view('users.index', compact('users', 'title', 'page_title'));
     }
 
     /**
@@ -31,8 +33,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('name', 'name')->all();
-        return view('users.create', compact('roles'));
+        $title = 'Tạo tài khoản';
+        $page_title = 'Users';
+        $roles = Role::all();
+        
+        return view('users.create', compact('roles', 'title', 'page_title'));
     }
 
     /**
@@ -43,12 +48,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $rules = [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'roles' => 'required'
-        ]);
+        ];
+
+        $message = [
+            'required' => 'Vui lòng nhập thông tin!',
+            'email.email' => 'Email không hợp lệ!',
+            'email.unique' => 'Email đã tồn tại!',
+            'password.same' => 'Nhập lại mật khẩu không đúng!'
+        ];
+        $request->validate($rules, $message);
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
@@ -80,6 +93,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $title = 'Chỉnh sửa tài khoản';
+        $page_title = 'Users';
         $user = User::find($id);
         $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles->pluck('name', 'name')->all();

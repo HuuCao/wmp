@@ -29,8 +29,8 @@
                                 Tên loại hàng: <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control input-sm" id="shelves_name" name="shelves_name" value="{{ old('shelves_name') }}"
-                                    placeholder="Nhập tên loại hàng">
+                                <input type="text" class="form-control input-sm" id="shelves_name" name="shelves_name"
+                                    value="{{ old('shelves_name') }}" placeholder="Nhập tên loại hàng">
                                 @error('shelves_name')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -41,18 +41,18 @@
                                 Vị trí: <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control input-sm" id="location" name="location" value="{{ old('location') }}"
-                                    placeholder="Nhập tên vị trí">
+                                <input type="text" class="form-control input-sm" id="location" name="location"
+                                    value="{{ old('location') }}" placeholder="Nhập tên vị trí">
                                 @error('location')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-4 text-right">Mô tả: <span class="text-danger">*</span></label>
+                            <label class="col-lg-4 text-right">Mô tả:</label>
                             <div class="col-lg-6">
-                                <textarea class="form-control input-sm" name="description" id="description"
-                                    placeholder="Nhập mô tả" style="height: 100px">{{ old('description') }}</textarea>
+                                <textarea class="form-control input-sm" name="description" id="description" placeholder="Nhập mô tả"
+                                    style="height: 100px">{{ old('description') }}</textarea>
                             </div>
                         </div>
 
