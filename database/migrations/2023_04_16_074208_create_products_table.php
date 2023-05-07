@@ -29,6 +29,8 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('unit_id');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('shelves_id');
+            $table->unsignedBigInteger('stock_inward_id');
+            $table->unsignedBigInteger('stock_outward_id');
             $table->timestamps();
 
             $table->foreign('unit_id')
@@ -42,6 +44,14 @@ class CreateProductsTable extends Migration
             $table->foreign('shelves_id')
                 ->references('id')
                 ->on('shelves')
+                ->onDelete('cascade');
+            $table->foreign('stock_inward_id')
+                ->references('id')
+                ->on('stock_inward')
+                ->onDelete('cascade');
+            $table->foreign('stock_outward_id')
+                ->references('id')
+                ->on('stock_outward')
                 ->onDelete('cascade');
         });
     }
