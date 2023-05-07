@@ -22,7 +22,6 @@ class UserController extends Controller
         $title = 'Người dùng';
         $page_title = 'Users';
         $users = User::orderBy('id', 'DESC')->with('roles')->paginate(2);
-        // return($users);
         return view('users.index', compact('users', 'title', 'page_title'));
     }
 

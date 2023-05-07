@@ -1,55 +1,63 @@
 @extends('layouts.app')
 
+@section('page_name')
+    {{ $title }}
+@endsection
+
+@section('page_title')
+    {{ $page_title }}
+@endsection
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Create New Role</h2>
+    <div class="col-lg-8 mx-auto">
+        <div class="card">
+            <div class="row">
+                <div class="card-title mx-auto">
+                    <h4>Nhập thông tin</h4>
+                </div>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
+            <div class="card-body">
+                <div class="input-sizes">
+                    <form class="form-valide" action="{{ route('roles.store') }}" method="POST">
+                        @csrf
+                        <div class="form-group row">
+                            <label class="col-lg-4 text-right" for="val-username">
+                                Tên vai trò: <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control input-sm" id="name" name="name"
+                                    value="{{ old('name') }}" placeholder="Nhập tên vai trò">
+                                @error('name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-4 text-right" for="val-permission">
+                                Permissions: <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-lg-6">
+                                @foreach ($permission as $value)
+                                <label>{{ Form::checkbox('permission[]', $value->id, false, ['class' => 'permission']) }}
+                                    {{ $value->name }}</label>
+                                <br />
+                            @endforeach
+                                @error('permission')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-8 ml-auto">
+                                <button type="submit" class="btn btn-primary">Thêm</button>
+                                <a class="btn btn-danger" href="{{ route('roles.index') }}">Trở lại</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-
-
-    @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-
-    {!! Form::open(['route' => 'roles.store', 'method' => 'POST']) !!}
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Name:</strong>
-                {!! Form::text('name', null, ['placeholder' => 'Name', 'class' => 'form-control']) !!}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Permission:</strong>
-                <br />
-                @foreach ($permission as $value)
-                    <label>{{ Form::checkbox('permission[]', $value->id, false, ['class' => 'name']) }}
-                        {{ $value->name }}</label>
-                    <br />
-                @endforeach
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </div>
-    {!! Form::close() !!}
-
 
 @endsection

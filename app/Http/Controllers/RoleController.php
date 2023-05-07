@@ -31,9 +31,10 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id', 'DESC')->paginate(5);
-        return view('roles.index', compact('roles'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        $title = 'Phân quyền';
+        $page_title = 'Roles';
+        $roles = Role::orderBy('id', 'DESC')->paginate(2);
+        return view('roles.index', compact('roles', 'title', 'page_title'));
     }
 
     /**
@@ -43,8 +44,10 @@ class RoleController extends Controller
      */
     public function create()
     {
+        $title = 'Tạo vai trò';
+        $page_title = 'Roles';
         $permission = Permission::get();
-        return view('roles.create', compact('permission'));
+        return view('roles.create', compact('permission', 'title', 'page_title'));
     }
 
     /**
