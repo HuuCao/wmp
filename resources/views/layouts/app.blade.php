@@ -64,7 +64,7 @@
                             <li><a href="{{ route('categories.index') }}">Loại hàng</a></li>
                             <li><a href="{{ route('units.index') }}">Đơn vị</a></li>
                             <li><a href="{{ route('shelves.index') }}">Kệ hàng</a></li>
-                            <li><a href="#">Sản phẩm</a></li>
+                            <li><a href="{{ route('products.index') }}">Sản phẩm</a></li>
                         </ul>
                     </li>
                     <li><a href="{{ route('suppliers.index') }}"><i class="ti-user"></i>Nhà cung cấp</a></li>
