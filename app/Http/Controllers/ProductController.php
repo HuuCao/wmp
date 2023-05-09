@@ -26,9 +26,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(5);
-        return view('products.index', compact('products'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        $title = 'Sản phẩm';
+        $page_title = 'Products';
+        $products = Product::where('is_active', 1)
+            ->orderBy('id', 'DESC')
+            ->paginate(2);
+        return view('products.index', compact('products', 'title', 'page_title'));
     }
 
     /**
@@ -38,7 +41,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $title = 'Tạo sản phẩm';
+        $page_title = 'Products';
+        return view('products.create', compact('title', 'page_title'));
     }
 
     /**

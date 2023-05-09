@@ -39,7 +39,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
-    Route::resource('products', ProductController::class);
+    // Route::resource('products', ProductController::class);
 });
 // Loại hàng
 Route::group(['prefix' => '/categories'], function () {
@@ -94,4 +94,15 @@ Route::group(['prefix' => '/customers'], function () {
     Route::get('/{id}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
     Route::post('/{id}/edit', [CustomerController::class, 'update'])->name('customers.update');
     Route::delete('/destroy/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+});
+
+// Khách hàng
+Route::group(['prefix' => '/products'], function () {
+    Route::get('/', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/show/{id}', [ProductController::class, 'show'])->name('products.show');
+    Route::get('/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/create', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::post('/{id}/edit', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 });
