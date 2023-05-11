@@ -160,7 +160,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $title = 'Tạo sản phẩm';
+        $title = 'Chỉnh sửa sản phẩm';
         $page_title = 'Products';
 
         $product = Product::find($id);
@@ -188,17 +188,71 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        request()->validate([
-            'name' => 'required',
-            'detail' => 'required',
+        $rules = [
+            'name_product' => 'required',
+            'sku' => [
+                'required',
+                'max:10',
+                'regex:/^[a-zA-Z0-9]+$/'
+            ],
+            'barcode' => [
+                'nullable',
+                'regex:/^\d{8}$|^\d{13}$/'
+            ],
+            'quantity' => 'nullable|numeric',
+            'import_price' => 'nullable|numeric',
+            'expiration_date' => 'nullable|date',
+        ];
+
+        $message = [
+            'name_product.required' => 'Tên của sản phẩm là bắt buộc.',
+            'sku.required' => 'SKU là bắt buộc.',
+            'sku.max' => 'SKU không được vượt quá 10 ký tự.',
+            'sku.regex' => 'SKU chỉ có thể chứa các ký tự chữ và số.',
+            'barcode.regex' => 'Mã vạch phải có 8 hoặc 13 chữ số.',
+            'quantity.numeric' => 'Số lượng phải là một con số.',
+            'import_price.numeric' => 'Giá nhập phải là một con số.',
+            'expiration_date.date' => 'Ngày hết hạn phải là một ngày hợp lệ.',
+        ];
+        $request->validate($rules, $message);
+
+        $name_product = $request->name_product;
+        $sku = $request->sku;
+        $barcode = $request->barcode;
+        $quantity = $request->quantity;
+        $import_price = $request->import_price;
+        $expiration_date = $request->expiration_date;
+        $status = $request->status;
+        $description = $request->description;
+        $unit_id = $request->unit;
+        $category_id = $request->category;
+        $shelves_id = $request->shelves;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $fileName = time() . '_' . rand(10000, 99999) . '_' . $image->getClientOriginalName();
+            $pathImage = $image->storeAs('images', $fileName, 'public');
+            $image = $pathImage;
+        }
+
+        Product::where('id', $id)->update([
+            'name_product' => $name_product,
+            'sku' => $sku,
+            'barcode' => $barcode,
+            'quantity' => $quantity,
+            'import_price' => $import_price,
+            'expiration_date' => $expiration_date,
+            'status' => $status,
+            'description' => $description,
+            'unit_id' => $unit_id,
+            'category_id' => $category_id,
+            'shelves_id' => $shelves_id,
+            'image' => $image,
         ]);
 
-        $product->update($request->all());
-
         return redirect()->route('products.index')
-            ->with('success', 'Product updated successfully');
+            ->with('success', 'Product updated successfully.');
     }
 
     /**
@@ -207,9 +261,11 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        $product->delete();
+        Product::where('id', $id)->update([
+            'is_active' => 2
+        ]);
 
         return redirect()->route('products.index')
             ->with('success', 'Product deleted successfully');

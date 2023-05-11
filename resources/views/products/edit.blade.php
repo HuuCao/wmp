@@ -228,7 +228,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 text-center mb-3">
-                <button type="submit" class="btn btn-primary">Thêm</button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
                 <a class="btn btn-danger" href="{{ route('products.index') }}">Trở lại</a>
             </div>
         </div>
