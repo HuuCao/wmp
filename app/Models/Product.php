@@ -24,18 +24,18 @@ class Product extends Model
         'sheft_id'
     ];
 
-    public function unit()
+    public function units()
     {
-        return $this->belongsTo(Unit::class);
+        return $this->belongsTo(Unit::class, "unit_id", "id");
     }
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, "category_id", "id");
     }
 
-    public function shelf()
+    public function shelves()
     {
-        return $this->belongsTo(Shelf::class);
+        return $this->belongsTo(Shelves::class, "shelves_id", "id");
     }
 }

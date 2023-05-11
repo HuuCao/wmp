@@ -16,4 +16,9 @@ class Shelves extends Model
         'description',
         'is_active'
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, "shelves_id", "id");
+    }
 }

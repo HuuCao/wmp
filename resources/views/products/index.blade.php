@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col-lg-12 margin-tb">
                     <div class="pull-left">
-                        <p><b>{{ $products->total() }}</b> loại hàng</p>
+                        <p><b>{{ $products->total() }}</b> sản phẩm</p>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                     </thead>
                     <tbody>
                         @php
-                            $pageItem = 2;
+                            $pageItem = 10;
                             $currentPage = $products->currentPage();
                             $page = ($currentPage - 1) * $pageItem + 1;
                         @endphp

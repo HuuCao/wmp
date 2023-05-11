@@ -111,6 +111,7 @@
                                 @error('image')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
+                                <img id="output_image" width="15%" />
                             </div>
                         </div>
                     </div>
@@ -271,7 +272,7 @@
 
     {{-- Popup thêm mới loại sản phẩm --}}
     <div class="modal fade" id="createCategoryModal" tabindex="-1" role="dialog"
-        aria-labelledby="createCategoryModalLabel" aria-hidden="true">
+        aria-labelledby="createCategoryLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

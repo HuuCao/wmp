@@ -387,9 +387,36 @@
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {
-                        alert('Product created successfully!');
+                        alert('Đã tạo thành công đơn vị!');
                         $('#unitForm')[0].reset();
                         $('#createUnitModal').modal('hide');
+                        location.reload();
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        displayValidationErrors(errors);
+                    } else {
+
+                    }
+                }
+            });
+        });
+
+        $('#categoryForm').submit(function(event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                url: $(this).attr('action'),
+                method: $(this).attr('method'),
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        alert('Đã tạo thành công loại hàng!');
+                        $('#categoryForm')[0].reset();
+                        $('#createCategoryModal').modal('hide');
                         location.reload();
                     }
                 },
@@ -414,7 +441,7 @@
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {
-                        alert('Supplier created successfully!');
+                        alert('Đã tạo thành công nhà cung cấp!');
                         $('#supplierForm')[0].reset();
                         $('#createSupplierModal').modal('hide');
                         location.reload();
@@ -441,7 +468,7 @@
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {
-                        alert('Shelves created successfully!');
+                        alert('Đã tạo thành công kệ hàng!');
                         $('#shelvesForm')[0].reset();
                         $('#createShelvesModal').modal('hide');
                         location.reload();
@@ -465,6 +492,36 @@
                 $('#' + field).after('<div class="invalid-feedback">' + errorMessage + '</div>');
             }
         }
+    </script>
+
+    <script>
+        // ============= UPLOAD IMAGE ============= //
+        const inputLogo = document.getElementById("image");
+        const previewLogo = document.getElementById("output_image");
+
+        // check if the preview image is stored in local storage
+        const storedImageLogo = localStorage.getItem("image");
+        if (storedImageLogo) {
+            previewLogo.src = storedImageLogo;
+            previewLogo.style.display = "block";
+        }
+
+        inputLogo.addEventListener("change", function() {
+            const file = this.files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener("load", function() {
+                previewLogo.src = reader.result;
+                previewLogo.style.display = "block";
+                localStorage.setItem("image", reader.result);
+            });
+
+            reader.readAsDataURL(file);
+        });
+        window.onbeforeunload = function() {
+            localStorage.removeItem("image");
+        };
+        // ============= END UPLOAD IMAGE ============= //
     </script>
 </body>
 

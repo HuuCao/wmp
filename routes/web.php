@@ -96,7 +96,7 @@ Route::group(['prefix' => '/customers'], function () {
     Route::delete('/destroy/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 });
 
-// Khách hàng
+// Sản phẩm
 Route::group(['prefix' => '/products'], function () {
     Route::get('/', [ProductController::class, 'index'])->name('products.index');
     Route::get('/show/{id}', [ProductController::class, 'show'])->name('products.show');

@@ -1,4 +1,4 @@
-@if ($paginator->hasPages() || $paginator->count() >= 2)
+@if ($paginator->hasPages() || $paginator->count() >= 10)
     <ul class="pager">
         @if ($paginator->onFirstPage())
             <li class="disabled"><span>← Trang đầu</span></li>

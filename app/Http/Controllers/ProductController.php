@@ -35,7 +35,7 @@ class ProductController extends Controller
         $page_title = 'Products';
         $products = Product::where('is_active', 1)
             ->orderBy('id', 'DESC')
-            ->paginate(2);
+            ->paginate(10);
         return view('products.index', compact(
             'products',
             'title',
@@ -77,22 +77,29 @@ class ProductController extends Controller
     {
         $rules = [
             'name_product' => 'required',
-            'sku' => 'required',
-            'barcode' => 'required',
-            'quantity' => 'required',
-            'import_price' => 'required',
-            'expiration_date' => 'required',
-            'status' => 'required',
-            'unit' => 'required',
-            'category' => 'required',
-            'supplier' => 'required',
-            'shelves' => 'required',
-            'description' => 'required',
-            'image' => 'required',
+            'sku' => [
+                'required',
+                'max:10',
+                'regex:/^[a-zA-Z0-9]+$/'
+            ],
+            'barcode' => [
+                'nullable',
+                'regex:/^\d{8}$|^\d{13}$/'
+            ],
+            'quantity' => 'nullable|numeric',
+            'import_price' => 'nullable|numeric',
+            'expiration_date' => 'nullable|date',
         ];
 
         $message = [
-            'required' => 'Vui lòng nhập thông tin!'
+            'name_product.required' => 'Tên của sản phẩm là bắt buộc.',
+            'sku.required' => 'SKU là bắt buộc.',
+            'sku.max' => 'SKU không được vượt quá 10 ký tự.',
+            'sku.regex' => 'SKU chỉ có thể chứa các ký tự chữ và số.',
+            'barcode.regex' => 'Mã vạch phải có 8 hoặc 13 chữ số.',
+            'quantity.numeric' => 'Số lượng phải là một con số.',
+            'import_price.numeric' => 'Giá nhập phải là một con số.',
+            'expiration_date.date' => 'Ngày hết hạn phải là một ngày hợp lệ.',
         ];
         $request->validate($rules, $message);
 
@@ -106,11 +113,13 @@ class ProductController extends Controller
         $products->code_product = $code_product;
         $products->sku = $request->sku;
         $products->barcode = $request->barcode;
-        $products->quantity = $request->quantity;
+        if ($request->quantity) {
+            $products->quantity = $request->quantity;
+        } else {
+            $products->quantity = 0;
+        }
         $products->import_price = $request->import_price;
-        $products->export_price = $request->import_price;
         $products->type = 1;
-        $products->manufacture_date = $request->expiration_date;
         $products->expiration_date = $request->expiration_date;
         $products->status = $request->status;
         $products->description = $request->description;
@@ -149,9 +158,27 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        return view('products.edit', compact('product'));
+        $title = 'Tạo sản phẩm';
+        $page_title = 'Products';
+
+        $product = Product::find($id);
+
+        $units = Unit::where('is_active', 1)->get();
+        $categories = Category::where('is_active', 1)->get();
+        $shelves = Shelves::where('is_active', 1)->get();
+        $suppliers = Supplier::where('is_active', 1)->get();
+
+        return view('products.edit', compact(
+            'title',
+            'page_title',
+            'product',
+            'units',
+            'categories',
+            'suppliers',
+            'shelves'
+        ));
     }
 
     /**
