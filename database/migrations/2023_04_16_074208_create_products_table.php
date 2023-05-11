@@ -15,20 +15,22 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('code_product')->unique();
             $table->string('name_product');
-            $table->decimal('import_price', 10, 2);
-            $table->decimal('export_price', 10, 2);
-            $table->string('type');
-            $table->integer('quantity');
-            $table->date('manufacture_date');
-            $table->date('expiration_date');
+            $table->string('sku');
+            $table->string('barcode');
+            $table->string('code_product')->unique();
+            $table->decimal('import_price', 10, 0)->nullable();
+            $table->decimal('export_price', 10, 0)->nullable();
+            $table->string('type')->nullable();
+            $table->integer('quantity')->nullable();
+            $table->date('expiration_date')->nullable();
             $table->enum('status', ['active', 'inactive']);
-            $table->string('image');
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
             $table->enum('is_active', [1, 2])->default(1);
-            $table->unsignedBigInteger('unit_id');
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('shelves_id');
+            $table->unsignedBigInteger('unit_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('shelves_id')->nullable();
             $table->timestamps();
 
             $table->foreign('unit_id')

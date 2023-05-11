@@ -80,8 +80,12 @@ class SupplierController extends Controller
         $suppliers->address = $request->address;
         $suppliers->save();
 
-        return redirect()->route('suppliers.index')
-            ->with('success', 'Supplier created successfully.');
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true]);
+        } else {
+            return redirect()->route('suppliers.index')
+                ->with('success', 'Supplier created successfully.');
+        }
     }
 
     /**

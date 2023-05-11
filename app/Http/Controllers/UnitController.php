@@ -48,7 +48,7 @@ class UnitController extends Controller
             'unit_name' => [
                 'required',
                 Rule::unique('units', 'unit_name')->where(function ($query) use ($request) {
-                    $query->where('is_active', '!=', 2)->where('unit_name', '<>', $request->unit_name);
+                    $query->where('is_active', '!=', 2)->where('unit_name', $request->unit_name);
                 })
             ]
         ];
@@ -66,8 +66,11 @@ class UnitController extends Controller
         $units->description = $request->description;
         $units->save();
 
-        return redirect()->route('units.index')
-            ->with('success', 'Unit created successfully.');
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true]);
+        } else {
+            return redirect()->route('units.index')->with('success', 'Unit created successfully.');
+        }
     }
 
     /**

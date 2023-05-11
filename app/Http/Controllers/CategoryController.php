@@ -65,8 +65,12 @@ class CategoryController extends Controller
         $categories->description = $request->description;
         $categories->save();
 
-        return redirect()->route('categories.index')
-            ->with('success', 'Category created successfully.');
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true]);
+        } else {
+            return redirect()->route('categories.index')
+                ->with('success', 'Category created successfully.');
+        }
     }
 
     /**

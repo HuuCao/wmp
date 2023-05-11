@@ -66,8 +66,12 @@ class ShelvesController extends Controller
         $shelves->description = $request->description;
         $shelves->save();
 
-        return redirect()->route('shelves.index')
-            ->with('success', 'Shelves created successfully.');
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true]);
+        } else {
+            return redirect()->route('shelves.index')
+                ->with('success', 'Shelves created successfully.');
+        }
     }
 
     /**

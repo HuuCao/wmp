@@ -52,8 +52,6 @@
                             <th>Giá xuất</th>
                             <th>Số lượng</th>
                             <th>Hạn sử dụng</th>
-                            <th>Ngày tạo</th>
-                            <th>Ngày cập nhật</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>

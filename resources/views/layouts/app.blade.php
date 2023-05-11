@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
     <!-- Styles -->
     <link href="{{ asset('css/lib/calendar2/pignose.calendar.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/lib/chartist/chartist.min.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/lib/chartist/chartist.min.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/lib/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/lib/themify-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('css/lib/owl.carousel.min.css') }}" rel="stylesheet" />
@@ -363,7 +363,7 @@
     <script src="{{ asset('js/lib/weather/weather-init.js') }}"></script>
     <script src="{{ asset('js/lib/circle-progress/circle-progress.min.js') }}"></script>
     <script src="{{ asset('js/lib/circle-progress/circle-progress-init.js') }}"></script>
-    <script src="{{ asset('js/lib/chartist/chartist.min.js') }}"></script>
+    {{-- <script src="{{ asset('js/lib/chartist/chartist.min.js') }}"></script> --}}
     <script src="{{ asset('js/lib/sparklinechart/jquery.sparkline.min.js') }}"></script>
     <script src="{{ asset('js/lib/sparklinechart/sparkline.init.js') }}"></script>
     <script src="{{ asset('js/lib/owl-carousel/owl.carousel.min.js') }}"></script>
@@ -376,6 +376,95 @@
         $(document).ready(function() {
             $(".js-select2-multi").select2();
         });
+
+        $('#unitForm').submit(function(event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                url: $(this).attr('action'),
+                method: $(this).attr('method'),
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        alert('Product created successfully!');
+                        $('#unitForm')[0].reset();
+                        $('#createUnitModal').modal('hide');
+                        location.reload();
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        displayValidationErrors(errors);
+                    } else {
+
+                    }
+                }
+            });
+        });
+
+        $('#supplierForm').submit(function(event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                url: $(this).attr('action'),
+                method: $(this).attr('method'),
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        alert('Supplier created successfully!');
+                        $('#supplierForm')[0].reset();
+                        $('#createSupplierModal').modal('hide');
+                        location.reload();
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        displayValidationErrors(errors);
+                    } else {
+
+                    }
+                }
+            });
+        });
+
+        $('#shelvesForm').submit(function(event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                url: $(this).attr('action'),
+                method: $(this).attr('method'),
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        alert('Shelves created successfully!');
+                        $('#shelvesForm')[0].reset();
+                        $('#createShelvesModal').modal('hide');
+                        location.reload();
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        displayValidationErrors(errors);
+                    } else {
+
+                    }
+                }
+            });
+        });
+
+        function displayValidationErrors(errors) {
+            for (var field in errors) {
+                var errorMessage = errors[field][0];
+                $('#' + field).addClass('is-invalid');
+                $('#' + field).after('<div class="invalid-feedback">' + errorMessage + '</div>');
+            }
+        }
     </script>
 </body>
 
