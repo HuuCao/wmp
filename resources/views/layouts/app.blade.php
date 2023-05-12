@@ -77,7 +77,7 @@
                             <span class="sidebar-collapse-icon ti-angle-down"></span>
                         </a>
                         <ul>
-                            <li><a href="ui-typography.html">Nhập hàng</a></li>
+                            <li><a href="{{ route('stock-inward.index') }}">Nhập hàng</a></li>
                             <li><a href="ui-alerts.html">Sản phẩm đã nhập</a></li>
                         </ul>
                     </li>
@@ -375,6 +375,64 @@
     <script>
         $(document).ready(function() {
             $(".js-select2-multi").select2();
+
+            var searchInput = $('#search-input');
+            var searchResults = $('#search-results');
+            var productList = $('#product-list');
+            var productIndex = 1;
+
+            searchInput.on('input', function() {
+                var query = $(this).val();
+
+                if (query.length >= 0) {
+                    $.ajax({
+                        url: '{{ route('products.search') }}',
+                        method: 'GET',
+                        data: {
+                            query: query
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            searchResults.empty();
+
+                            if (response.length > 0) {
+                                $.each(response, function(index, product) {
+                                    var listItem = $('<li>').text(product.name_product);
+                                    listItem.attr('data-product-id', product.id);
+                                    searchResults.append(listItem);
+                                });
+                            } else {
+                                var listItem = $('<li>').text('No results found');
+                                searchResults.append(listItem);
+                            }
+                        }
+                    });
+                } else {
+                    searchResults.empty();
+                }
+            });
+            searchResults.on('click', 'li', function() {
+                var productId = $(this).attr('data-product-id');
+                var productName = $(this).text();
+                addProductToTable(productId, productName);
+                $(this).remove();
+                searchInput.val('');
+            });
+
+            function addProductToTable(productId, productName) {
+                var row = $('<tr>');
+                row.attr('id', 'product-row-' + productIndex);
+                var productCell = $('<td>').text(productName);
+                var quantityCell = $('<td>');
+                var quantityInput = $('<input>');
+                quantityInput.attr('type', 'number');
+                quantityInput.attr('name', 'products[' + productIndex + '][quantity]');
+                quantityCell.append(quantityInput);
+                row.append(productCell);
+                row.append(quantityCell);
+                productList.append(row);
+                productIndex++;
+            }
         });
 
         $('#unitForm').submit(function(event) {

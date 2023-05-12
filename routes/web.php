@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BotController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ShelvesController;
+use App\Http\Controllers\StockInwardController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 
@@ -105,4 +107,18 @@ Route::group(['prefix' => '/products'], function () {
     Route::get('/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::post('/{id}/edit', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::get('/search', [ProductController::class, 'search'])->name('products.search');
 });
+
+// Phiếu nhập kho
+Route::group(['prefix' => '/stock-inward'], function () {
+    Route::get('/', [StockInwardController::class, 'index'])->name('stock-inward.index');
+    Route::get('/show/{id}', [StockInwardController::class, 'show'])->name('stock-inward.show');
+    Route::get('/create', [StockInwardController::class, 'create'])->name('stock-inward.create');
+    Route::post('/create', [StockInwardController::class, 'store'])->name('stock-inward.store');
+    Route::get('/{id}/edit', [StockInwardController::class, 'edit'])->name('stock-inward.edit');
+    Route::post('/{id}/edit', [StockInwardController::class, 'update'])->name('stock-inward.update');
+    Route::delete('/destroy/{id}', [StockInwardController::class, 'destroy'])->name('stock-inward.destroy');
+});
+
+Route::get('/bot', [BotController::class, 'chatBot'])->name('bot.chatbot');

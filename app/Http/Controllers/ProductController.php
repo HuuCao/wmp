@@ -270,4 +270,12 @@ class ProductController extends Controller
         return redirect()->route('products.index')
             ->with('success', 'Product deleted successfully');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->get('query');
+        $products = Product::where('sku', 'LIKE', "%{$query}%")->get();
+        
+        return response()->json($products);
+    }
 }
