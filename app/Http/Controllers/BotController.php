@@ -13,7 +13,7 @@ class BotController extends Controller
         $homnay = "Hello world";
         $chatID = '-814715937';
 
-        $apiToken = "5939759499:AAEXNtyHsX5ENFjybw-wEHDZnCrEkkdpyOQ";
+        $apiToken = "5751384612:AAF-yfw4fWeWlJV2M23WOnwjVvXV1JgCojE";
         $data = [
             'chat_id' => '-814715937',
             'text' => $homnay
