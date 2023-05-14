@@ -132,12 +132,11 @@ class ProductController extends Controller
             $fileName = time() . '_' . rand(10000, 99999) . '_' . $image->getClientOriginalName();
             $pathImage = $image->storeAs('images', $fileName, 'public');
             $products->image = $pathImage;
-        } else {
-            $products->image = 'url';
         }
         $products->save();
 
-        $message = "Có một sản phẩm mới vừa được tạo với mã sản phẩm là " . $code_product;
+        $message = "WMP THÔNG BÁO: Có một sản phẩm mới vừa được tạo với mã sản phẩm là " . $code_product ."\n";
+        $message .= "Kiểm tra sản phẩm ngay. " . route('product.index');
         $chatID = '-814715937';
 
         $apiToken = "5751384612:AAF-yfw4fWeWlJV2M23WOnwjVvXV1JgCojE";
