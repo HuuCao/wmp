@@ -136,7 +136,7 @@ class ProductController extends Controller
         $products->save();
 
         $message = "WMP THÔNG BÁO: Có một sản phẩm mới vừa được tạo với mã sản phẩm là " . $code_product ."\n";
-        $message .= "Kiểm tra sản phẩm ngay. " . route('product.index');
+        $message .= "Kiểm tra sản phẩm ngay. " . route('products.index');
         $chatID = '-814715937';
 
         $apiToken = "5751384612:AAF-yfw4fWeWlJV2M23WOnwjVvXV1JgCojE";
