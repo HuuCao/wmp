@@ -137,6 +137,16 @@ class ProductController extends Controller
         }
         $products->save();
 
+        $message = "Có một sản phẩm mới vừa được tạo với mã sản phẩm là " . $code_product;
+        $chatID = '-814715937';
+
+        $apiToken = "5751384612:AAF-yfw4fWeWlJV2M23WOnwjVvXV1JgCojE";
+        $data = [
+            'chat_id' => $chatID,
+            'text' => $message
+        ];
+        file_get_contents("https://api.telegram.org/bot$apiToken/sendMessage?" . http_build_query($data));
+
         return redirect()->route('products.index')
             ->with('success', 'Product created successfully.');
     }
@@ -275,7 +285,7 @@ class ProductController extends Controller
     {
         $query = $request->get('query');
         $products = Product::where('sku', 'LIKE', "%{$query}%")->get();
-        
+
         return response()->json($products);
     }
 }
