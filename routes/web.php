@@ -108,6 +108,7 @@ Route::group(['prefix' => '/products'], function () {
     Route::post('/{id}/edit', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
     Route::get('/search', [ProductController::class, 'search'])->name('products.search');
+    Route::post('/import', [ProductController::class, 'import'])->name('products.import');
 });
 
 // Phiếu nhập kho

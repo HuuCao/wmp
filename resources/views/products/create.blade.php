@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <div class="input-sizes">
                             <div class="form-row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <label for="name_product">
                                         Tên sản phẩm <span class="text-danger font-italic">(*)</span>
                                     </label>
@@ -36,31 +36,13 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="import-price">
                                         Mã SKU <span class="text-danger font-italic">(*)</span>
                                     </label>
                                     <input type="text" class="form-control input-sm" value="{{ old('sku') }}"
                                         id="sku" name="sku" placeholder="Nhập SKU">
                                     @error('sku')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="barcode">Mã vạch / Barcode</label>
-                                    <input type="number" class="form-control input-sm" value="{{ old('barcode') }}"
-                                        id="barcode" name="barcode" placeholder="Nhập mã">
-                                    @error('barcode')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="quantity">Số lượng</label>
-                                    <input type="number" class="form-control input-sm" value="{{ old('quantity') }}"
-                                        id="quantity" name="quantity" placeholder="Nhập số lượng">
-                                    @error('quantity')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -75,10 +57,10 @@
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="expiration-date">Hạn sử dụng</label>
-                                    <input type="date" class="date form-control input-sm"
-                                        value="{{ old('expiration_date') }}" id="expiration_date" name="expiration_date">
-                                    @error('expiration_date')
+                                    <label for="export_price">Giá xuất</label>
+                                    <input type="number" class="form-control input-sm" value="{{ old('export_price') }}"
+                                        id="export_price" name="export_price" placeholder="Giá xuất">
+                                    @error('export_price')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -172,7 +154,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="form-row">
+                            {{-- <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="supplier">Nhà cung cấp</label>
                                     <div style="display: flex">
@@ -194,7 +176,7 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="supplier">Kệ hàng</label>
@@ -310,7 +292,7 @@
     </div>
 
     {{-- Popup thêm mới nhà cung cấp --}}
-    <div class="modal fade" id="createSuppierModal" tabindex="-1" role="dialog" aria-labelledby="createSuppierLabel"
+    {{-- <div class="modal fade" id="createSuppierModal" tabindex="-1" role="dialog" aria-labelledby="createSuppierLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -371,7 +353,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- Popup thêm mới kệ hàng --}}
     <div class="modal fade" id="createShelvesModal" tabindex="-1" role="dialog" aria-labelledby="createShelvesLabel"

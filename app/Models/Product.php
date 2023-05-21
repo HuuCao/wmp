@@ -12,16 +12,18 @@ class Product extends Model
     protected $fillable = [
         'code_product',
         'name_product',
+        'sku',
         'import_price',
         'export_price',
         'type',
         'manufacture_date',
         'expiration_date',
         'status',
+        'description',
         'image',
         'unit_id',
         'category_id',
-        'sheft_id'
+        'shelves_id'
     ];
 
     public function units()

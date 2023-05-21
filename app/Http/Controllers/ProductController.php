@@ -9,6 +9,8 @@ use App\Models\Supplier;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Imports\ProductImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -36,10 +38,15 @@ class ProductController extends Controller
         $products = Product::where('is_active', 1)
             ->orderBy('id', 'DESC')
             ->paginate(10);
+        $categories = Category::where('is_active', 1)->get();
+        $units = Unit::where('is_active', 1)->get();
+
         return view('products.index', compact(
             'products',
             'title',
-            'page_title'
+            'page_title',
+            'categories',
+            'units'
         ));
     }
 
@@ -76,30 +83,34 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name_product' => 'required',
+            'name_product' => [
+                'required',
+                Rule::unique('products', 'name_product')->where(function ($query) use ($request) {
+                    $query->where('is_active', '!=', 2)->where('name_product', $request->name_product);
+                })
+            ],
             'sku' => [
                 'required',
                 'max:10',
                 'regex:/^[a-zA-Z0-9]+$/'
             ],
-            'barcode' => [
-                'nullable',
-                'regex:/^\d{8}$|^\d{13}$/'
-            ],
-            'quantity' => 'nullable|numeric',
             'import_price' => 'nullable|numeric',
-            'expiration_date' => 'nullable|date',
+            'export_price' => 'nullable|numeric',
+            'category' => 'required',
+            'image' => 'image|dimensions:width=500,height=500',
         ];
 
         $message = [
             'name_product.required' => 'Tên của sản phẩm là bắt buộc.',
+            'name_product.unique' => 'Tên sản phẩm đã tồn tại.',
+            'category.required' => 'Loại sản phẩm là bắt buộc.',
             'sku.required' => 'SKU là bắt buộc.',
             'sku.max' => 'SKU không được vượt quá 10 ký tự.',
             'sku.regex' => 'SKU chỉ có thể chứa các ký tự chữ và số.',
-            'barcode.regex' => 'Mã vạch phải có 8 hoặc 13 chữ số.',
-            'quantity.numeric' => 'Số lượng phải là một con số.',
             'import_price.numeric' => 'Giá nhập phải là một con số.',
-            'expiration_date.date' => 'Ngày hết hạn phải là một ngày hợp lệ.',
+            'export_price.numeric' => 'Giá nhập phải là một con số.',
+            'image.image' => 'Hình ảnh không đúng định dạng.',
+            'image.dimensions' => 'Hình ảnh không đúng kích thước.'
         ];
         $request->validate($rules, $message);
 
@@ -110,17 +121,12 @@ class ProductController extends Controller
         $products = new Product();
 
         $products->name_product = $request->name_product;
-        $products->code_product = $code_product;
         $products->sku = $request->sku;
-        $products->barcode = $request->barcode;
-        if ($request->quantity) {
-            $products->quantity = $request->quantity;
-        } else {
-            $products->quantity = 0;
-        }
+        $products->code_product = $code_product;
+        $products->quantity = 0;
         $products->import_price = $request->import_price;
-        $products->type = 1;
-        $products->expiration_date = $request->expiration_date;
+        $products->export_price = $request->export_price;
+        $products->type = 0; // 1: nhập kho, 2: xuất kho
         $products->status = $request->status;
         $products->description = $request->description;
         $products->status = $request->status;
@@ -135,7 +141,7 @@ class ProductController extends Controller
         }
         $products->save();
 
-        $message = "WMP THÔNG BÁO: Có một sản phẩm mới vừa được tạo với mã sản phẩm là " . $code_product ."\n";
+        $message = "WMP THÔNG BÁO: Có một sản phẩm mới vừa được tạo với mã sản phẩm là " . $code_product . "\n";
         $message .= "Kiểm tra sản phẩm ngay. " . route('products.index');
         $chatID = '-814715937';
 
@@ -200,44 +206,48 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'name_product' => 'required',
+            'name_product' => [
+                'required',
+                Rule::unique('products', 'name_product')->where(function ($query) use ($request) {
+                    $query->where('is_active', '!=', 2)->where('name_product', '<>', $request->name_product);
+                })
+            ],
             'sku' => [
                 'required',
                 'max:10',
                 'regex:/^[a-zA-Z0-9]+$/'
             ],
-            'barcode' => [
-                'nullable',
-                'regex:/^\d{8}$|^\d{13}$/'
-            ],
-            'quantity' => 'nullable|numeric',
             'import_price' => 'nullable|numeric',
-            'expiration_date' => 'nullable|date',
+            'export_price' => 'nullable|numeric',
+            'category' => 'required',
+            'image' => 'image|dimensions:width=500,height=500',
         ];
 
         $message = [
             'name_product.required' => 'Tên của sản phẩm là bắt buộc.',
+            'name_product.unique' => 'Tên sản phẩm đã tồn tại.',
+            'category.required' => 'Loại sản phẩm là bắt buộc.',
             'sku.required' => 'SKU là bắt buộc.',
             'sku.max' => 'SKU không được vượt quá 10 ký tự.',
             'sku.regex' => 'SKU chỉ có thể chứa các ký tự chữ và số.',
-            'barcode.regex' => 'Mã vạch phải có 8 hoặc 13 chữ số.',
-            'quantity.numeric' => 'Số lượng phải là một con số.',
             'import_price.numeric' => 'Giá nhập phải là một con số.',
-            'expiration_date.date' => 'Ngày hết hạn phải là một ngày hợp lệ.',
+            'export_price.numeric' => 'Giá nhập phải là một con số.',
+            'image.image' => 'Hình ảnh không đúng định dạng.',
+            'image.dimensions' => 'Hình ảnh không đúng kích thước.'
         ];
         $request->validate($rules, $message);
 
         $name_product = $request->name_product;
         $sku = $request->sku;
-        $barcode = $request->barcode;
-        $quantity = $request->quantity;
         $import_price = $request->import_price;
-        $expiration_date = $request->expiration_date;
+        $export_price = $request->export_price;
         $status = $request->status;
         $description = $request->description;
         $unit_id = $request->unit;
         $category_id = $request->category;
         $shelves_id = $request->shelves;
+        $image = $request->input('existing_image');
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $fileName = time() . '_' . rand(10000, 99999) . '_' . $image->getClientOriginalName();
@@ -248,10 +258,8 @@ class ProductController extends Controller
         Product::where('id', $id)->update([
             'name_product' => $name_product,
             'sku' => $sku,
-            'barcode' => $barcode,
-            'quantity' => $quantity,
             'import_price' => $import_price,
-            'expiration_date' => $expiration_date,
+            'export_price' => $export_price,
             'status' => $status,
             'description' => $description,
             'unit_id' => $unit_id,
@@ -280,11 +288,36 @@ class ProductController extends Controller
             ->with('success', 'Product deleted successfully');
     }
 
+    /**
+     * Search product.
+     *
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $request)
     {
         $query = $request->get('query');
         $products = Product::where('sku', 'LIKE', "%{$query}%")->get();
 
         return response()->json($products);
+    }
+
+    /**
+     * Import product.
+     *
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xls,xlsx',
+        ]);
+
+        $file = $request->file('file');
+
+        Excel::import(new ProductImport, $file);
+
+        return redirect()->back()->with('success', 'Import sản phẩm thành công.');
     }
 }

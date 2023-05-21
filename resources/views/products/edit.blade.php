@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <div class="input-sizes">
                             <div class="form-row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <label for="name_product">
                                         Tên sản phẩm <span class="text-danger font-italic">(*)</span>
                                     </label>
@@ -36,31 +36,13 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="import-price">
                                         Mã SKU <span class="text-danger font-italic">(*)</span>
                                     </label>
                                     <input type="text" class="form-control input-sm" value="{{ $product->sku }}"
                                         id="sku" name="sku" placeholder="Nhập SKU">
                                     @error('sku')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="barcode">Mã vạch / Barcode</label>
-                                    <input type="number" class="form-control input-sm" value="{{ $product->barcode }}"
-                                        id="barcode" name="barcode" placeholder="Nhập mã">
-                                    @error('barcode')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="quantity">Số lượng</label>
-                                    <input type="number" class="form-control input-sm" value="{{ $product->quantity }}"
-                                        id="quantity" name="quantity" placeholder="Nhập số lượng">
-                                    @error('quantity')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -76,11 +58,11 @@
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="expiration-date">Hạn sử dụng</label>
-                                    <input type="date" class="date form-control input-sm"
-                                        value="{{ $product->expiration_date }}" id="expiration_date"
-                                        name="expiration_date">
-                                    @error('expiration_date')
+                                    <label for="export_price">Giá bán</label>
+                                    <input type="number" class="form-control input-sm"
+                                        value="{{ $product->export_price }}" id="export_price" name="export_price"
+                                        placeholder="Giá nhập">
+                                    @error('export_price')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -110,6 +92,7 @@
                             <div class="form-group">
                                 <label for="image">Hình ảnh</label>
                                 <input type="file" class="form-control-file border" name="image" id="image">
+                                <input type="hidden" name="existing_image" value="{{ $product->image }}">
                                 @error('image')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -171,29 +154,6 @@
                                         </button>
                                     </div>
                                     @error('category')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="supplier">Nhà cung cấp</label>
-                                    <div style="display: flex">
-                                        <select class="js-select2-multi form-control" name="supplier" id="supplier">
-                                            <option selected value="">-- Chọn --</option>
-                                            @foreach ($suppliers as $supplier)
-                                                <option @if ($product->supplier_id == $supplier->id) selected @endif
-                                                    value="{{ $supplier->id }}">
-                                                    {{ $supplier->supplier_name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <button type="button" class="btn btn-sm" data-toggle="modal"
-                                            data-target="#createSuppierModal">
-                                            <i class="ti-plus"></i>
-                                        </button>
-                                    </div>
-                                    @error('supplier')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -300,70 +260,6 @@
                             <textarea class="form-control" name="description" id="description" rows="3">{{ old('description') }}</textarea>
                             @error('description')
                                 <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    {{-- Popup thêm mới nhà cung cấp --}}
-    <div class="modal fade" id="createSuppierModal" tabindex="-1" role="dialog" aria-labelledby="createSuppierLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createSuppierLabel">Thêm nhà cung cấp</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form id="supplierForm" method="POST" action="{{ route('suppliers.store') }}">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="tax_code">Mã số thuế</label>
-                            <input type="text" class="form-control input-sm" id="tax_code" name="tax_code"
-                                value="{{ old('tax_code') }}" placeholder="Nhập mã số thuế">
-                            @error('tax_code')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="supplier_name">Tên nhà cung cấp</label>
-                            <input type="text" class="form-control input-sm" id="supplier_name" name="supplier_name"
-                                value="{{ old('supplier_name') }}" placeholder="Nhập tên nhà cung cấp">
-                            @error('supplier_name')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Số điện thoại</label>
-                            <input type="text" class="form-control input-sm" id="phone" name="phone"
-                                value="{{ old('phone') }}" placeholder="Nhập số điện thoại">
-                            @error('phone')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control input-sm" id="email" name="email"
-                                value="{{ old('email') }}" placeholder="Nhập email">
-                            @error('email')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="address">Địa chỉ</label>
-                            <input type="text" class="form-control input-sm" id="address" name="address"
-                                value="{{ old('address') }}" placeholder="Nhập địa chỉ">
-                            @error('address')
-                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>

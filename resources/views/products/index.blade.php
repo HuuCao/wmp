@@ -21,6 +21,9 @@
                         <h4>Danh sách sản phẩm</h4>
                     </div>
                     <div class="pull-right">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
+                            Import Excel
+                        </button>
                         <a class="btn btn-success" href="{{ route('products.create') }}">Thêm mới</a>
                     </div>
                 </div>
@@ -46,12 +49,12 @@
                     <thead>
                         <tr class="text-center">
                             <th>STT</th>
-                            <th>Mã SP</th>
-                            <th>Tên SP</th>
-                            <th>Giá nhập</th>
-                            <th>Giá xuất</th>
-                            <th>Số lượng</th>
-                            <th>Hạn sử dụng</th>
+                            <th>Mã sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Loại sản phẩm</th>
+                            <th>Đơn vị tính</th>
+                            <th>Người tạo</th>
+                            <th>Trạng thái</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
@@ -67,10 +70,22 @@
                                 <td>{{ $page++ }}</td>
                                 <td>{{ $product->code_product }}</td>
                                 <td>{{ $product->name_product }}</td>
-                                <td>{{ $product->import_price }}</td>
-                                <td>{{ $product->export_price }}</td>
-                                <td>{{ $product->quantity }}</td>
-                                <td>{{ $product->expiration_date }}</td>
+                                <td>
+                                    @foreach ($categories as $category)
+                                        {{ $category->id === $product->category_id ? $category->name_category : '' }}
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach ($units as $unit)
+                                        {{ $unit->id === $product->unit_id ? $unit->unit_name : '' }}
+                                    @endforeach
+                                </td>
+                                <td>Admin</td>
+                                @if ($product->status === 'active')
+                                    <td><span class="badge badge-success">Đang bán</span></td>
+                                @else
+                                    <td><span class="badge badge-danger">Tạm dừng</span></td>
+                                @endif
                                 <td class="text-center">
                                     <a href="{{ route('products.show', $product->id) }}"><i class="ti-eye"></i></a>
                                     <a href="{{ route('products.edit', $product->id) }}" class="ml-2">
@@ -96,12 +111,12 @@
                     <thead>
                         <tr class="text-center">
                             <th>STT</th>
-                            <th>Mã SP</th>
-                            <th>Tên SP</th>
-                            <th>Giá nhập</th>
-                            <th>Giá xuất</th>
-                            <th>Số lượng</th>
-                            <th>Hạn sử dụng</th>
+                            <th>Mã sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Loại sản phẩm</th>
+                            <th>Đơn vị tính</th>
+                            <th>Người tạo</th>
+                            <th>Trạng thái</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
@@ -116,4 +131,33 @@
         </div>
     </div>
     {{ $products->links('pagination.custom-pagination') }}
+
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="importModalLabel">Import Sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('products.import') }}" enctype="multipart/form-data">
+                        @csrf
+
+                        <div class="form-group">
+                            <input type="file" name="file" id="file" accept=".xls,.xlsx" required>
+                            @error('file')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
