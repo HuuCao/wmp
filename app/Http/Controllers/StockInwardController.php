@@ -110,7 +110,18 @@ class StockInwardController extends Controller
             $stock_product->save();
         }
 
-        return redirect()->route('stock-inward.index')
+        $message = "WMP THÔNG BÁO NHẬP KHO: Có một phiếu nhập kho mới vừa được tạo với mã phiếu là " . $stock_inward_code . "\n";
+        $message .= "Kiểm tra thông tin phiếu nhập ngay. " . route('stockinward.index');
+        $chatID = '-925594429';
+
+        $apiToken = "6016271040:AAHLJ8Dk_SngY0HI3b4pAfb2HNuM2u1YmXU";
+        $data = [
+            'chat_id' => $chatID,
+            'text' => $message
+        ];
+        file_get_contents("https://api.telegram.org/bot$apiToken/sendMessage?" . http_build_query($data));
+
+        return redirect()->route('stockinward.index')
             ->with('success', 'Đã tạo thành công phiếu nhập kho.');
     }
 

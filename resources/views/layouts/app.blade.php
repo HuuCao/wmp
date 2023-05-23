@@ -87,7 +87,7 @@
                             <span class="sidebar-collapse-icon ti-angle-down"></span>
                         </a>
                         <ul>
-                            <li><a href="uc-calendar.html">Xuất hàng</a></li>
+                            <li><a href="{{ route('stockoutward.index') }}">Xuất hàng</a></li>
                             <li><a href="uc-carousel.html">Sản phẩm đã xuất</a></li>
                         </ul>
                     </li>

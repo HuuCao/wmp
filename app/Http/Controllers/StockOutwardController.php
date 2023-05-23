@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Shelves;
 use App\Models\StockOutward;
+use App\Models\Supplier;
+use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -36,7 +41,23 @@ class StockOutwardController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Tạo phiếu xuất';
+        $page_title = 'Stock-Outward';
+        $units = Unit::where('is_active', 1)->get();
+        $products = Product::where('is_active', 1)->get();
+        $categories = Category::where('is_active', 1)->get();
+        $shelves = Shelves::where('is_active', 1)->get();
+        $suppliers = Supplier::where('is_active', 1)->get();
+
+        return view('stockoutward.create', compact(
+            'title',
+            'page_title',
+            'units',
+            'products',
+            'categories',
+            'suppliers',
+            'shelves'
+        ));
     }
 
     /**

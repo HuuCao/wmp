@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    <form class="form-valide" action="{{ route('stockinward.store') }}" method="POST">
+    <form class="form-valide" action="{{ route('stockoutward.store') }}" method="POST">
         @csrf
         <div class="row">
             <div class="col-lg-12">
@@ -38,7 +38,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="input_day">Ngày nhập kho <span
+                                    <label for="input_day">Ngày xuất kho <span
                                             class="text-danger font-italic">(*)</span></label>
                                     <input type="date" class="date form-control" value="{{ old('input_day') }}"
                                         id="input_day" name="input_day">
@@ -49,7 +49,7 @@
                                 <div class="form-group col-md-4">
                                     <label for="user">Người tạo</label>
                                     <input type="text" class="form-control" value="{{ Auth::user()->id }}" id="user"
-                                        name="user" placeholder="Giá nhập" readonly>
+                                        name="user" placeholder="Giá xuất" readonly>
                                     @error('user')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -57,7 +57,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-lg-12">
-                                    <label for="content">Nội dung nhập kho</label>
+                                    <label for="content">Nội dung xuất kho</label>
                                     <textarea class="form-control" id="content" name="content" placeholder="Nhập nội dung" style="height: 100px">{{ old('content') }}</textarea>
                                     @error('content')
                                         <div class="text-danger">{{ $message }}</div>
@@ -95,8 +95,8 @@
                                             <tr>
                                                 <th>Tên sản phẩm</th>
                                                 <th>Đơn vị tính</th>
-                                                <th>Nhà cung cấp</th>
-                                                <th>Giá nhập</th>
+                                                <th>Khách hàng</th>
+                                                <th>Giá xuất</th>
                                                 <th>Số lượng</th>
                                                 <th>Hạn sử dụng</th>
                                                 <th>Tổng tiền</th>
@@ -169,7 +169,7 @@
         <div class="row">
             <div class="col-lg-12 text-center mb-3">
                 <button type="submit" class="btn btn-primary">Thêm</button>
-                <a class="btn btn-danger" href="{{ route('stockinward.index') }}">Trở lại</a>
+                <a class="btn btn-danger" href="{{ route('stockoutward.index') }}">Trở lại</a>
             </div>
         </div>
     </form>
