@@ -17,11 +17,9 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name_product');
             $table->string('sku')->nullable();
-            $table->string('barcode')->nullable();
             $table->string('code_product')->unique();
             $table->decimal('import_price', 10, 0)->nullable();
             $table->decimal('export_price', 10, 0)->nullable();
-            $table->string('type')->nullable();
             $table->integer('quantity')->nullable();
             $table->date('expiration_date')->nullable();
             $table->enum('status', ['active', 'inactive']);
@@ -31,6 +29,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('unit_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('shelves_id')->nullable();
+            $table->unsignedBigInteger('supplier_id')->nullable();
             $table->timestamps();
 
             $table->foreign('unit_id')
@@ -44,6 +43,9 @@ class CreateProductsTable extends Migration
             $table->foreign('shelves_id')
                 ->references('id')
                 ->on('shelves');
+            $table->foreign('supplier_id')
+                ->references('id')
+                ->on('suppliers');
         });
     }
 

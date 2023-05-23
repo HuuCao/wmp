@@ -77,8 +77,8 @@
                             <span class="sidebar-collapse-icon ti-angle-down"></span>
                         </a>
                         <ul>
-                            <li><a href="{{ route('stock-inward.index') }}">Nhập hàng</a></li>
-                            <li><a href="ui-alerts.html">Sản phẩm đã nhập</a></li>
+                            <li><a href="{{ route('stockinward.index') }}">Nhập hàng</a></li>
+                            <li><a href="{{ route('stockinwardproduct.index') }}">Sản phẩm đã nhập</a></li>
                         </ul>
                     </li>
                     <li>

@@ -126,7 +126,6 @@ class ProductController extends Controller
         $products->quantity = 0;
         $products->import_price = $request->import_price;
         $products->export_price = $request->export_price;
-        $products->type = 0; // 1: nhập kho, 2: xuất kho
         $products->status = $request->status;
         $products->description = $request->description;
         $products->status = $request->status;

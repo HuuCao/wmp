@@ -15,9 +15,11 @@ class CreateStockOutwardTable extends Migration
     {
         Schema::create('stock_outward', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('customer_id')->nullable();
+            $table->text('output_day');
+            $table->text('stock_inward_code');
             $table->text('content');
             $table->text('note');
             $table->enum('is_active', [1, 2])->default(1);

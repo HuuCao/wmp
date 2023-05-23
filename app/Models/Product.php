@@ -18,6 +18,7 @@ class Product extends Model
         'type',
         'manufacture_date',
         'expiration_date',
+        'quantity',
         'status',
         'description',
         'image',

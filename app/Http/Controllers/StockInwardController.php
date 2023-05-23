@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Shelves;
 use App\Models\StockInward;
+use App\Models\StockProduct;
 use App\Models\Supplier;
 use App\Models\Unit;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StockInwardController extends Controller
@@ -20,13 +23,15 @@ class StockInwardController extends Controller
     {
         $title = 'Nhập hàng';
         $page_title = 'Stock-Inward';
-        $products = StockInward::where('is_active', 1)
+        $stock_inward_data = StockInward::where('is_active', 1)
             ->orderBy('id', 'DESC')
             ->paginate(10);
+        $users = User::with('roles')->get();
         return view('stockinward.index', compact(
-            'products',
+            'stock_inward_data',
             'title',
-            'page_title'
+            'page_title',
+            'users'
         ));
     }
 
@@ -40,6 +45,7 @@ class StockInwardController extends Controller
         $title = 'Tạo phiếu nhập';
         $page_title = 'Stock-Inward';
         $units = Unit::where('is_active', 1)->get();
+        $products = Product::where('is_active', 1)->get();
         $categories = Category::where('is_active', 1)->get();
         $shelves = Shelves::where('is_active', 1)->get();
         $suppliers = Supplier::where('is_active', 1)->get();
@@ -48,6 +54,7 @@ class StockInwardController extends Controller
             'title',
             'page_title',
             'units',
+            'products',
             'categories',
             'suppliers',
             'shelves'
@@ -62,7 +69,49 @@ class StockInwardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'input_day' => 'required|date|after_or_equal:today'
+        ];
+
+        $message = [
+            'input_day.required' => 'Ngày nhập kho là bắt buộc.',
+            'input_day.after_or_equal' => 'Ngày nhập kho phải lớn hơn hoặc bằng ngày hiện tại.',
+            'input_day.date' => 'Ngày nhập kho không đúng định dạng',
+        ];
+        $request->validate($rules, $message);
+
+        $count_stock = StockInward::count();
+        $stock_inward_code = "NK-" . str_pad($count_stock + 1, 5, "0", STR_PAD_LEFT);
+
+        $stock_inward = new StockInward();
+
+        $stock_inward->stock_inward_code = $stock_inward_code;
+        $stock_inward->input_day = $request->input_day;
+        $stock_inward->user_id = $request->user;
+        $stock_inward->content = $request->content;
+        $stock_inward->note = $request->note;
+        $stock_inward->save();
+
+        $stock_inward_id = $stock_inward->getKey();
+
+        $product_stock_data = $request->input('products');
+
+        foreach ($product_stock_data as $product_stock) {
+            $stock_product = new StockProduct();
+            $stock_product->stock_id = $stock_inward_id;
+            $stock_product->type = 1; // 1: nhập kho, 2: xuất kho
+            $stock_product->product_id = $product_stock['product_id'];
+            $stock_product->unit_id = $product_stock['unit_id'];
+            $stock_product->supplier_id = $product_stock['supplier_id'];
+            $stock_product->import_price = $product_stock['import_price'];
+            $stock_product->quantity = $product_stock['quantity'];
+            $stock_product->expiration_date = $product_stock['expiration_date'];
+            $stock_product->total = $product_stock['total'];
+            $stock_product->save();
+        }
+
+        return redirect()->route('stock-inward.index')
+            ->with('success', 'Đã tạo thành công phiếu nhập kho.');
     }
 
     /**

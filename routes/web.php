@@ -12,6 +12,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ShelvesController;
 use App\Http\Controllers\StockInwardController;
+use App\Http\Controllers\StockInwardProductController;
+use App\Http\Controllers\StockOutwardController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 
@@ -113,13 +115,35 @@ Route::group(['prefix' => '/products'], function () {
 
 // Phiếu nhập kho
 Route::group(['prefix' => '/stock-inward'], function () {
-    Route::get('/', [StockInwardController::class, 'index'])->name('stock-inward.index');
-    Route::get('/show/{id}', [StockInwardController::class, 'show'])->name('stock-inward.show');
-    Route::get('/create', [StockInwardController::class, 'create'])->name('stock-inward.create');
-    Route::post('/create', [StockInwardController::class, 'store'])->name('stock-inward.store');
-    Route::get('/{id}/edit', [StockInwardController::class, 'edit'])->name('stock-inward.edit');
-    Route::post('/{id}/edit', [StockInwardController::class, 'update'])->name('stock-inward.update');
-    Route::delete('/destroy/{id}', [StockInwardController::class, 'destroy'])->name('stock-inward.destroy');
+    Route::get('/', [StockInwardController::class, 'index'])->name('stockinward.index');
+    Route::get('/show/{id}', [StockInwardController::class, 'show'])->name('stockinward.show');
+    Route::get('/create', [StockInwardController::class, 'create'])->name('stockinward.create');
+    Route::post('/create', [StockInwardController::class, 'store'])->name('stockinward.store');
+    Route::get('/{id}/edit', [StockInwardController::class, 'edit'])->name('stockinward.edit');
+    Route::post('/{id}/edit', [StockInwardController::class, 'update'])->name('stockinward.update');
+    Route::delete('/destroy/{id}', [StockInwardController::class, 'destroy'])->name('stockinward.destroy');
+});
+
+// Phiếu xuất kho
+Route::group(['prefix' => '/stock-outward'], function () {
+    Route::get('/', [StockOutwardController::class, 'index'])->name('stockoutward.index');
+    Route::get('/show/{id}', [StockOutwardController::class, 'show'])->name('stockoutward.show');
+    Route::get('/create', [StockOutwardController::class, 'create'])->name('stockoutward.create');
+    Route::post('/create', [StockOutwardController::class, 'store'])->name('stockoutward.store');
+    Route::get('/{id}/edit', [StockOutwardController::class, 'edit'])->name('stockoutward.edit');
+    Route::post('/{id}/edit', [StockOutwardController::class, 'update'])->name('stockoutward.update');
+    Route::delete('/destroy/{id}', [StockOutwardController::class, 'destroy'])->name('stockoutward.destroy');
+});
+
+// Phiếu nhập kho
+Route::group(['prefix' => '/stock-inward-product'], function () {
+    Route::get('/', [StockInwardProductController::class, 'index'])->name('stockinwardproduct.index');
+    Route::get('/show/{id}', [StockInwardProductController::class, 'show'])->name('stockinwardproduct.show');
+    Route::get('/create', [StockInwardProductController::class, 'create'])->name('stockinwardproduct.create');
+    Route::post('/create', [StockInwardProductController::class, 'store'])->name('stockinwardproduct.store');
+    Route::get('/{id}/edit', [StockInwardProductController::class, 'edit'])->name('stockinwardproduct.edit');
+    Route::post('/{id}/edit', [StockInwardProductController::class, 'update'])->name('stockinwardproduct.update');
+    Route::delete('/destroy/{id}', [StockInwardProductController::class, 'destroy'])->name('stockinwardproduct.destroy');
 });
 
 Route::get('/bot', [BotController::class, 'chatBot'])->name('bot.chatbot');
