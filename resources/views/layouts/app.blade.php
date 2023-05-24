@@ -94,10 +94,10 @@
                     <li><a href="{{ route('stockdata.index') }}"><i class="ti-package"></i>Dữ liệu kho hàng</a></li>
 
                     {{-- Báo cáo thống kê --}}
-                    <li class="label">Báo cáo thống kê</li>
+                    {{-- <li class="label">Báo cáo thống kê</li>
                     <li><a href="#"><i class="ti-stats-up"></i>Thống kê nhập xuất tồn đầu</a></li>
                     <li><a href="#"><i class="ti-money"></i>Thống kê doanh thu</a></li>
-                    <li><a href="#"><i class="ti-book"></i>Thống kê SL hàng bán ra</a></li>
+                    <li><a href="#"><i class="ti-book"></i>Thống kê SL hàng bán ra</a></li> --}}
 
                     {{-- Thông tin quản trị --}}
                     <li class="label">Thông tin quản trị</li>

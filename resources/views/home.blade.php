@@ -20,7 +20,7 @@
                         </div>
                         <div class="stat-content dib">
                             <div class="stat-text">Sản phẩm</div>
-                            <div class="stat-digit">{{ count($stock_product_data) }}</div>
+                            <div class="stat-digit">{{ count($products) }}</div>
                         </div>
                     </div>
                 </div>
@@ -55,8 +55,8 @@
                         <div class="stat-icon dib"><i class="ti-link color-danger border-danger"></i>
                         </div>
                         <div class="stat-content dib">
-                            <div class="stat-text">Referral</div>
-                            <div class="stat-digit">2,781</div>
+                            <div class="stat-text">Doanh thu</div>
+                            <div class="stat-digit">{{ $revenue }}</div>
                         </div>
                     </div>
                 </div>
