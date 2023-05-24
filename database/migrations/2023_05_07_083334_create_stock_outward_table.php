@@ -19,7 +19,7 @@ class CreateStockOutwardTable extends Migration
             $table->unsignedBigInteger('product_id')->nullable();
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->text('output_day');
-            $table->text('stock_inward_code');
+            $table->text('stock_outward_code');
             $table->text('content');
             $table->text('note');
             $table->enum('is_active', [1, 2])->default(1);

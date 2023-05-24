@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Product;
-use App\Models\StockInward;
 use App\Models\StockProduct;
 use App\Models\Supplier;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 
-class StockInwardProductController extends Controller
+class StockOutwardProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,24 +18,24 @@ class StockInwardProductController extends Controller
      */
     public function index()
     {
-        $title = 'Sản phẩm đã nhập';
-        $page_title = 'Stock-Inward-Product';
+        $title = 'Sản phẩm đã xuất';
+        $page_title = 'Stock-Outward-Product';
         $stock_product_data = StockProduct::where('is_active', 1)
-            ->where('type', 1)
+            ->where('type', 2)
             ->orderBy('id', 'DESC')
             ->paginate(10);
         $products = Product::where('is_active', 1)
             ->get();
-        $suppliers = Supplier::where('is_active', 1)
+        $customers = Customer::where('is_active', 1)
             ->get();
         $units = Unit::where('is_active', 1)
             ->get();
-        return view('stockinwardproduct.index', compact(
+        return view('stockoutwardproduct.index', compact(
             'stock_product_data',
             'title',
             'page_title',
             'products',
-            'suppliers',
+            'customers',
             'units'
         ));
     }

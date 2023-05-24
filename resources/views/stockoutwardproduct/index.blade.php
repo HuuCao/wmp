@@ -18,10 +18,7 @@
             <div class="row">
                 <div class="col-lg-12 margin-tb">
                     <div class="pull-left">
-                        <h4>Danh sách phiếu xuất</h4>
-                    </div>
-                    <div class="pull-right">
-                        <a class="btn btn-success" href="{{ route('stockoutward.create') }}">Thêm mới</a>
+                        <h4>Danh sách sản phẩm xuất</h4>
                     </div>
                 </div>
             </div>
@@ -36,56 +33,63 @@
             <div class="row">
                 <div class="col-lg-12 margin-tb">
                     <div class="pull-left">
-                        <p><b>{{ $stock_outward_data->total() }}</b> phiếu</p>
+                        <p><b>{{ $stock_product_data->total() }}</b> sản phẩm</p>
                     </div>
                 </div>
             </div>
 
-            @if (count($stock_outward_data) > 0)
+            @if (count($stock_product_data) > 0)
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr class="text-center">
                             <th>STT</th>
-                            <th>Mã phiếu xuất</th>
-                            <th>Nội dung xuất hàng</th>
-                            <th>Ngày xuất</th>
-                            <th>Ghi chú</th>
-                            <th>Người xuất</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Khách hàng</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Ngày hết hạn</th>
+                            <th>Tông tiền</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php
                             $pageItem = 10;
-                            $currentPage = $stock_outward_data->currentPage();
+                            $currentPage = $stock_product_data->currentPage();
                             $page = ($currentPage - 1) * $pageItem + 1;
                         @endphp
 
-                        @foreach ($stock_outward_data as $stock_outward)
+                        @foreach ($stock_product_data as $stock_product)
                             <tr class="text-center">
                                 <td>{{ $page++ }}</td>
-                                <td>{{ $stock_outward->stock_outward_code }}</td>
-                                <td>{{ $stock_outward->content }}</td>
-                                <td>{{ $stock_outward->output_day }}</td>
-                                <td>{{ $stock_outward->note }}</td>
                                 <td>
-                                    @foreach ($users as $user)
-                                        {{ $user->id == $stock_outward->user_id ? $user->name : '' }}
+                                    @foreach ($products as $product)
+                                        {{ $product->id == $stock_product->product_id ? $product->name_product : '' }}
                                     @endforeach
                                 </td>
+                                <td>
+                                    @foreach ($customers as $customer)
+                                        {{ $customer->id == $stock_product->customer_id ? $customer->customer_name : '' }}
+                                    @endforeach
+                                </td>
+                                <td>{{ $stock_product->quantity }}</td>
+                                <td>{{ $stock_product->export_price }}</td>
+                                <td>{{ $stock_product->expiration_date }}</td>
+                                <td>{{ $stock_product->total }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('stockinward.show', $stock_outward->id) }}"><i class="ti-eye"></i></a>
-                                    <a href="{{ route('stockinward.edit', $stock_outward->id) }}" class="ml-2">
+                                    <a href="{{ route('stockoutward.show', $stock_product->id) }}"><i
+                                            class="ti-eye"></i></a>
+                                    <a href="{{ route('stockoutward.edit', $stock_product->id) }}" class="ml-2">
                                         <i class="ti-pencil-alt"></i>
                                     </a>
                                     <a href="" class="ml-2"
-                                        onclick="if (confirm('Bạn có chắc muốn xóa danh mục này không?')) { event.preventDefault(); document.getElementById('delete-form-{{ $stock_outward->id }}').submit(); }">
+                                        onclick="if (confirm('Bạn có chắc muốn xóa danh mục này không?')) { event.preventDefault(); document.getElementById('delete-form-{{ $stock_product->id }}').submit(); }">
                                         <i class="ti-trash"></i>
                                     </a>
                                     {!! Form::open([
                                         'method' => 'DELETE',
-                                        'route' => ['stockinward.destroy', $stock_outward->id],
-                                        'id' => 'delete-form-' . $stock_outward->id,
+                                        'route' => ['stockoutward.destroy', $stock_product->id],
+                                        'id' => 'delete-form-' . $stock_product->id,
                                     ]) !!}
                                     {!! Form::close() !!}
                                 </td>
@@ -98,11 +102,12 @@
                     <thead>
                         <tr class="text-center">
                             <th>STT</th>
-                            <th>Mã phiếu xuất</th>
-                            <th>Nội dung xuất hàng</th>
-                            <th>Ngày xuất</th>
-                            <th>Ghi chú</th>
-                            <th>Người xuất</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Khách hàng</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Ngày hết hạn</th>
+                            <th>Tông tiền</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
@@ -116,5 +121,5 @@
             @endif
         </div>
     </div>
-    {{ $stock_outward_data->links('pagination.custom-pagination') }}
+    {{ $stock_product_data->links('pagination.custom-pagination') }}
 @endsection

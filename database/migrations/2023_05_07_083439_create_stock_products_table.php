@@ -19,6 +19,7 @@ class CreateStockProductsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('unit_id')->nullable();
             $table->unsignedBigInteger('supplier_id')->nullable();
+            $table->unsignedBigInteger('customer_id')->nullable();
             $table->decimal('import_price', 10, 0)->nullable();
             $table->decimal('export_price', 10, 0)->nullable();
             $table->decimal('total', 10, 0)->nullable();
@@ -39,6 +40,9 @@ class CreateStockProductsTable extends Migration
             $table->foreign('supplier_id')
                 ->references('id')
                 ->on('suppliers');
+            $table->foreign('customer_id')
+                ->references('id')
+                ->on('customers');
         });
     }
 

@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\StockInward;
+use App\Models\StockOutward;
 use App\Models\StockProduct;
-use App\Models\Supplier;
-use App\Models\Unit;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class StockInwardProductController extends Controller
+class StockDataController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,25 +18,31 @@ class StockInwardProductController extends Controller
      */
     public function index()
     {
-        $title = 'Sản phẩm đã nhập';
-        $page_title = 'Stock-Inward-Product';
-        $stock_product_data = StockProduct::where('is_active', 1)
-            ->where('type', 1)
+        $title = 'Dữ liệu kho hàng';
+        $page_title = 'Stock-Data';
+        $stock_inward_data = StockInward::where('is_active', 1)
             ->orderBy('id', 'DESC')
-            ->paginate(10);
+            ->get();
         $products = Product::where('is_active', 1)
             ->get();
-        $suppliers = Supplier::where('is_active', 1)
+        $stock_outward_data = StockOutward::where('is_active', 1)
+            ->orderBy('id', 'DESC')
             ->get();
-        $units = Unit::where('is_active', 1)
-            ->get();
-        return view('stockinwardproduct.index', compact(
+        $stock_product_data = StockProduct::where('is_active', 1)
+            ->groupBy('product_id')
+            ->having('type', 1)
+            ->orderBy('id', 'DESC')
+            ->paginate(10);
+
+        $users = User::with('roles')->get();
+        return view('stockdata.index', compact(
+            'stock_inward_data',
+            'stock_outward_data',
             'stock_product_data',
             'title',
             'page_title',
             'products',
-            'suppliers',
-            'units'
+            'users'
         ));
     }
 

@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    <form class="form-valide" action="{{ route('stockoutward.store') }}" method="POST">
+    <form class="form-valide" action="{{ route('stockinward.store') }}" method="POST">
         @csrf
         <div class="row">
             <div class="col-lg-12">
@@ -30,26 +30,26 @@
                                     <label for="code_inward">
                                         Mã phiếu <span class="text-danger font-italic">(*)</span>
                                     </label>
-                                    <input type="text" class="form-control" value="{{ old('stock_outward_code') }}"
-                                        id="stock_outward_code" name="stock_outward_code"
+                                    <input type="text" class="form-control" value="{{ old('stock_inward_code') }}"
+                                        id="stock_inward_code" name="stock_inward_code"
                                         placeholder="Hệ thống sẽ tự động tạo mã" readonly>
-                                    @error('stock_outward_code')
+                                    @error('stock_inward_code')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="output_day">Ngày xuất kho <span
+                                    <label for="input_day">Ngày nhập kho <span
                                             class="text-danger font-italic">(*)</span></label>
-                                    <input type="date" class="date form-control" value="{{ old('output_day') }}"
-                                        id="output_day" name="output_day">
-                                    @error('output_day')
+                                    <input type="date" class="date form-control" value="{{ old('input_day') }}"
+                                        id="input_day" name="input_day">
+                                    @error('input_day')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="user">Người tạo</label>
                                     <input type="text" class="form-control" value="{{ Auth::user()->id }}" id="user"
-                                        name="user" placeholder="Giá xuất" readonly>
+                                        name="user" placeholder="Giá nhập" readonly>
                                     @error('user')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -57,7 +57,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-lg-12">
-                                    <label for="content">Nội dung xuất kho</label>
+                                    <label for="content">Nội dung nhập kho</label>
                                     <textarea class="form-control" id="content" name="content" placeholder="Nhập nội dung" style="height: 100px">{{ old('content') }}</textarea>
                                     @error('content')
                                         <div class="text-danger">{{ $message }}</div>
@@ -84,9 +84,6 @@
                     <div class="row">
                         <div class="card-title">
                             <h4>Danh sách sản phẩm</h4>
-                            @error('products')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
                         </div>
                     </div>
                     <div class="card-body">
@@ -97,10 +94,11 @@
                                         <thead>
                                             <tr>
                                                 <th>Tên sản phẩm</th>
-                                                <th>Hạn sử dụng</th>
-                                                <th>Khách hàng</th>
-                                                <th>Giá xuất</th>
+                                                <th>Đơn vị tính</th>
+                                                <th>Nhà cung cấp</th>
+                                                <th>Giá nhập</th>
                                                 <th>Số lượng</th>
+                                                <th>Hạn sử dụng</th>
                                                 <th>Tổng tiền</th>
                                                 <th>Action</th>
                                             </tr>
@@ -110,43 +108,44 @@
                                                 <td>
                                                     <select name="products[0][product_id]" class="form-control" required>
                                                         <option value="">-- Chọn --</option>
-                                                        @foreach ($stock_product_data as $stock_product)
-                                                            <option value="{{ $stock_product->product_id }}">
-                                                                @foreach ($products as $product)
-                                                                    {{ $product->id === $stock_product->product_id ? $product->name_product : '' }}
-                                                                @endforeach
+                                                        @foreach ($products as $product)
+                                                            <option value="{{ $product->id }}">
+                                                                {{ $product->name_product }}
                                                             </option>
                                                         @endforeach
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <select name="products[0][expiration_date]" class="form-control"
-                                                        required>
+                                                    <select name="products[0][unit_id]" class="form-control" required>
                                                         <option value="">-- Chọn --</option>
-                                                        @foreach ($stock_product_data as $stock_product)
-                                                            <option value="{{ $stock_product->expiration_date }}">
-                                                                {{ $stock_product->expiration_date }}
+                                                        @foreach ($units as $unit)
+                                                            <option value="{{ $unit->id }}">{{ $unit->unit_name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
+
                                                 </td>
                                                 <td>
-                                                    <select name="products[0][customer_id]" class="form-control" required>
+                                                    <select name="products[0][supplier_id]" class="form-control" required>
                                                         <option value="">-- Chọn --</option>
-                                                        @foreach ($customers as $customer)
-                                                            <option value="{{ $customer->id }}">
-                                                                {{ $customer->customer_name }}
+                                                        @foreach ($suppliers as $supplier)
+                                                            <option value="{{ $supplier->id }}">
+                                                                {{ $supplier->supplier_name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="products[0][export_price]"
+                                                    <input type="number" name="products[0][import_price]"
                                                         class="form-control price-input" required>
                                                 </td>
                                                 <td>
                                                     <input type="number" name="products[0][quantity]"
                                                         class="form-control quantity-input" required>
+                                                </td>
+                                                <td>
+                                                    <input type="date" name="products[0][expiration_date]"
+                                                        class="form-control" required>
                                                 </td>
                                                 <td>
                                                     <input type="text" name="products[0][total]"
@@ -170,7 +169,7 @@
         <div class="row">
             <div class="col-lg-12 text-center mb-3">
                 <button type="submit" class="btn btn-primary">Thêm</button>
-                <a class="btn btn-danger" href="{{ route('stockoutward.index') }}">Trở lại</a>
+                <a class="btn btn-danger" href="{{ route('stockinward.index') }}">Trở lại</a>
             </div>
         </div>
     </form>
@@ -187,40 +186,39 @@
                     <td>
                         <select name="products[${productCount}][product_id]" class="form-control" required>
                             <option value="">-- Chọn --</option>
-                            @foreach ($stock_product_data as $stock_product)
-                                <option value="{{ $stock_product->product_id }}">
-                                    @foreach ($products as $product)
-                                        {{ $product->id === $stock_product->product_id ? $product->name_product : '' }}
-                                    @endforeach
+                            @foreach ($products as $product)
+                                <option value="{{ $product->id }}">{{ $product->name_product }}
                                 </option>
                             @endforeach
                         </select>
                     </td>
                     <td>
-                        <select name="products[${productCount}][expiration_date]" class="form-control" required>
+                        <select name="products[${productCount}][unit_id]" class="form-control" required>
                             <option value="">-- Chọn --</option>
-                            @foreach ($stock_product_data as $stock_product)
-                                <option value="{{ $stock_product->expiration_date }}">
-                                    {{ $stock_product->expiration_date }}
+                            @foreach ($units as $unit)
+                                <option value="{{ $unit->id }}">{{ $unit->unit_name }}
                                 </option>
                             @endforeach
                         </select>
                     </td>
                     <td>
-                        <select name="products[${productCount}][customer_id]" class="form-control" required>
+                        <select name="products[${productCount}][supplier_id]" class="form-control" required>
                             <option value="">-- Chọn --</option>
-                            @foreach ($customers as $customer)
-                                <option value="{{ $customer->id }}">
-                                    {{ $customer->customer_name }}
+                            @foreach ($suppliers as $supplier)
+                                <option value="{{ $supplier->id }}">
+                                    {{ $supplier->supplier_name }}
                                 </option>
                             @endforeach
                         </select>
                     </td>
                     <td>
-                        <input type="number" name="products[${productCount}][export_price]" class="form-control price-input" required>
+                        <input type="number" name="products[${productCount}][import_price]" class="form-control price-input" required>
                     </td>
                     <td>
                         <input type="number" name="products[${productCount}][quantity]" class="form-control quantity-input" required>
+                    </td>
+                    <td>
+                        <input type="date" name="products[${productCount}][expiration_date]" class="form-control" required>
                     </td>
                     <td>
                         <input type="text" name="products[${productCount}][total]" class="form-control total-input" readonly>

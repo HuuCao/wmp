@@ -88,10 +88,10 @@
                         </a>
                         <ul>
                             <li><a href="{{ route('stockoutward.index') }}">Xuất hàng</a></li>
-                            <li><a href="uc-carousel.html">Sản phẩm đã xuất</a></li>
+                            <li><a href="{{ route('stockoutwardproduct.index') }}">Sản phẩm đã xuất</a></li>
                         </ul>
                     </li>
-                    <li><a href="#"><i class="ti-package"></i>Dữ liệu kho hàng</a></li>
+                    <li><a href="{{ route('stockdata.index') }}"><i class="ti-package"></i>Dữ liệu kho hàng</a></li>
 
                     {{-- Báo cáo thống kê --}}
                     <li class="label">Báo cáo thống kê</li>

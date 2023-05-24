@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
+use App\Models\StockProduct;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,6 +28,15 @@ class HomeController extends Controller
     {
         $title = 'Home';
         $page_title = 'Welcome!';
-        return view('home', compact('title', 'page_title'));
+        $customers = Customer::where('is_active', 1)->get();
+        $suppliers = Supplier::where('is_active', 1)->get();
+        $stock_product_data = StockProduct::where('is_active', 1)->where('type', 1)->get();
+        return view('home', compact(
+            'title',
+            'page_title',
+            'customers',
+            'suppliers',
+            'stock_product_data'
+        ));
     }
 }

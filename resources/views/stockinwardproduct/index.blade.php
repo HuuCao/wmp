@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-lg-12 margin-tb">
                     <div class="pull-left">
-                        <p><b>{{ $stock_product_data->total() }}</b> phiếu</p>
+                        <p><b>{{ $stock_product_data->total() }}</b> sản phẩm</p>
                     </div>
                 </div>
             </div>

@@ -11,9 +11,11 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ShelvesController;
+use App\Http\Controllers\StockDataController;
 use App\Http\Controllers\StockInwardController;
 use App\Http\Controllers\StockInwardProductController;
 use App\Http\Controllers\StockOutwardController;
+use App\Http\Controllers\StockOutwardProductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 
@@ -135,7 +137,7 @@ Route::group(['prefix' => '/stock-outward'], function () {
     Route::delete('/destroy/{id}', [StockOutwardController::class, 'destroy'])->name('stockoutward.destroy');
 });
 
-// Phiếu nhập kho
+// Sản phẩm nhập kho
 Route::group(['prefix' => '/stock-inward-product'], function () {
     Route::get('/', [StockInwardProductController::class, 'index'])->name('stockinwardproduct.index');
     Route::get('/show/{id}', [StockInwardProductController::class, 'show'])->name('stockinwardproduct.show');
@@ -144,6 +146,28 @@ Route::group(['prefix' => '/stock-inward-product'], function () {
     Route::get('/{id}/edit', [StockInwardProductController::class, 'edit'])->name('stockinwardproduct.edit');
     Route::post('/{id}/edit', [StockInwardProductController::class, 'update'])->name('stockinwardproduct.update');
     Route::delete('/destroy/{id}', [StockInwardProductController::class, 'destroy'])->name('stockinwardproduct.destroy');
+});
+
+// Sản phẩm xuất kho
+Route::group(['prefix' => '/stock-outward-product'], function () {
+    Route::get('/', [StockOutwardProductController::class, 'index'])->name('stockoutwardproduct.index');
+    Route::get('/show/{id}', [StockOutwardProductController::class, 'show'])->name('stockoutwardproduct.show');
+    Route::get('/create', [StockOutwardProductController::class, 'create'])->name('stockoutwardproduct.create');
+    Route::post('/create', [StockOutwardProductController::class, 'store'])->name('stockoutwardproduct.store');
+    Route::get('/{id}/edit', [StockOutwardProductController::class, 'edit'])->name('stockoutwardproduct.edit');
+    Route::post('/{id}/edit', [StockOutwardProductController::class, 'update'])->name('stockoutwardproduct.update');
+    Route::delete('/destroy/{id}', [StockOutwardProductController::class, 'destroy'])->name('stockoutwardproduct.destroy');
+});
+
+// Dữ liệu kho hàng
+Route::group(['prefix' => '/stock-data'], function () {
+    Route::get('/', [StockDataController::class, 'index'])->name('stockdata.index');
+    Route::get('/show/{id}', [StockDataController::class, 'show'])->name('stockdata.show');
+    Route::get('/create', [StockDataController::class, 'create'])->name('stockdata.create');
+    Route::post('/create', [StockDataController::class, 'store'])->name('stockdata.store');
+    Route::get('/{id}/edit', [StockDataController::class, 'edit'])->name('stockdata.edit');
+    Route::post('/{id}/edit', [StockDataController::class, 'update'])->name('stockdata.update');
+    Route::delete('/destroy/{id}', [StockDataController::class, 'destroy'])->name('stockdata.destroy');
 });
 
 Route::get('/bot', [BotController::class, 'chatBot'])->name('bot.chatbot');
