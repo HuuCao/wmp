@@ -21,11 +21,11 @@ class BotController extends Controller
             $fiveDaysBeforeExpiration = strtotime('-5 days', $expirationDate);
             $currentDate = strtotime(date('Y-m-d'));
             $currentTime = strtotime(date('H:i'));
-            $notificationTime = strtotime(date('Y-m-d') . ' 22:00');
+            $notificationTime = strtotime(date('Y-m-d') . ' 22:10');
             foreach ($products as $product) {
                 if ($stock_product->product_id === $product->id) {
                     $product_name = $product->name_product;
-                    if ($currentDate >= $fiveDaysBeforeExpiration && $currentDate <= $expirationDate  && $currentTime >= $notificationTime) {
+                    if ($currentDate >= $fiveDaysBeforeExpiration && $currentDate <= $expirationDate) {
                         $remainingDays = round(($expirationDate - $currentDate) / (60 * 60 * 24));
                         $message = "Sản phẩm có tên " . $product_name . " sẽ hết hạn sử dụng trong vòng " . $remainingDays . " ngày." . " Hạn sử dụng đến ngày: " . $stock_product['expiration_date'];
                         $chatID = '-814715937';
