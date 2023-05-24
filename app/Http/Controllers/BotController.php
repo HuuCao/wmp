@@ -21,7 +21,7 @@ class BotController extends Controller
             $fiveDaysBeforeExpiration = strtotime('-5 days', $expirationDate);
             $currentDate = strtotime(date('Y-m-d'));
             $currentTime = strtotime(date('H:i'));
-            $notificationTime = strtotime(date('Y-m-d') . ' 19:20');
+            $notificationTime = strtotime(date('Y-m-d') . ' 22:00');
             foreach ($products as $product) {
                 if ($stock_product->product_id === $product->id) {
                     $product_name = $product->name_product;
