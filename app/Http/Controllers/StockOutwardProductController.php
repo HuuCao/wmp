@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\StockOutward;
 use App\Models\StockProduct;
 use App\Models\Supplier;
 use App\Models\Unit;
@@ -24,6 +25,8 @@ class StockOutwardProductController extends Controller
             ->where('type', 2)
             ->orderBy('id', 'DESC')
             ->paginate(10);
+        $stock_outward_data = StockOutward::where('is_active', 1)
+            ->get();
         $products = Product::where('is_active', 1)
             ->get();
         $customers = Customer::where('is_active', 1)
@@ -36,7 +39,8 @@ class StockOutwardProductController extends Controller
             'page_title',
             'products',
             'customers',
-            'units'
+            'units',
+            'stock_outward_data'
         ));
     }
 

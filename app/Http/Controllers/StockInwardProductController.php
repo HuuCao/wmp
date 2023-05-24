@@ -24,6 +24,8 @@ class StockInwardProductController extends Controller
             ->where('type', 1)
             ->orderBy('id', 'DESC')
             ->paginate(10);
+        $stock_inward_data = StockInward::where('is_active', 1)
+            ->get();
         $products = Product::where('is_active', 1)
             ->get();
         $suppliers = Supplier::where('is_active', 1)
@@ -36,7 +38,8 @@ class StockInwardProductController extends Controller
             'page_title',
             'products',
             'suppliers',
-            'units'
+            'units',
+            'stock_inward_data'
         ));
     }
 

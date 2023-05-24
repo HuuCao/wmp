@@ -43,6 +43,7 @@
                     <thead>
                         <tr class="text-center">
                             <th>STT</th>
+                            <th>Mã phiếu xuất</th>
                             <th>Tên sản phẩm</th>
                             <th>Khách hàng</th>
                             <th>Số lượng</th>
@@ -62,6 +63,11 @@
                         @foreach ($stock_product_data as $stock_product)
                             <tr class="text-center">
                                 <td>{{ $page++ }}</td>
+                                <td>
+                                    @foreach ($stock_outward_data as $stock_outward)
+                                        {{ $stock_outward->id == $stock_product->stock_id ? $stock_outward->stock_outward_code : '' }}
+                                    @endforeach
+                                </td>
                                 <td>
                                     @foreach ($products as $product)
                                         {{ $product->id == $stock_product->product_id ? $product->name_product : '' }}
@@ -102,6 +108,7 @@
                     <thead>
                         <tr class="text-center">
                             <th>STT</th>
+                            <th>Mã phiếu xuất</th>
                             <th>Tên sản phẩm</th>
                             <th>Khách hàng</th>
                             <th>Số lượng</th>
